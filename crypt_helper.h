@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 char possibleActions(int i, char c, char k);
 char* stringPtr(char* code);

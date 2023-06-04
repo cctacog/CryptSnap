@@ -32,7 +32,7 @@ int encrypt_decrypt()
 
     char operate[20];
     printf("\n\nWhat operation would you like to encrypt your code to key with?\n(AND/OR/NAND/NOR/XOR): ");
-    gets(operate);
+    gets_s(operate);
     char operations[5][6] = {"and", "or", "nand", "nor", "xor"};
     int op = -1;
     for(int i = 0; i < 5; i++)

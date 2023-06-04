@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include "crypt_helper.h"
 /*
 Sophia Garcia
 01-31-2023
@@ -12,7 +9,7 @@ int des(char num)
     int numb;
     char choice[20];
     printf("\nWould you like to treat %c as\na digit or a character?: ", num);
-    gets(choice);
+    gets_s(choice);
         if(choice[0] == 'd' || choice[0]== 'D')
             numb = num - 48;
         else numb = -1;
@@ -59,10 +56,10 @@ char* stringPtr(char* code)
 
     printf("\nEnter string : ");
 
-    while (m1 != '\n')
+    while (m1 != EOF)
     {
         // read the input from keyboard standard input
-        m1 = getc(stdin);
+        m1 = getchar();
 
         // re-allocate (resize) memory for character read to be stored
         code = (char*)realloc(code, x * sizeof(char));
@@ -161,7 +158,7 @@ char char_alphabet(int b)
         if(b < 0)
         {
             printf("\n((:%i))\n", b);
-            char end = 256;
+            int end = 256;
             b -= end;
             printf("\n((:%i))\n", b);
         }
