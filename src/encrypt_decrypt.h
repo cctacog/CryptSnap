@@ -3,6 +3,6 @@
 
 #include "crypt_helper.h"
 
-int encrypt_decrypt();
+int crypt();
 
 #endif

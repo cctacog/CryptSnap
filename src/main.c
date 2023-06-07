@@ -6,5 +6,5 @@ CISC 211
 #include "encrypt_decrypt.h"
 int main()
 {
-    return encrypt_decrypt();
+    return crypt();
 }

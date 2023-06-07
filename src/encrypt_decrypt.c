@@ -1,7 +1,6 @@
 #include "encrypt_decrypt.h"
 
-
-int encrypt_decrypt()
+int crypt()
 {
     //prints title of program
     printf("\nENCRYPTION!\n\n\n");
@@ -16,10 +15,10 @@ int encrypt_decrypt()
 
     int n1 = 0, n2 = 0;
 
-    code = stringPtr(code);
+    code = stringPtr(code, "code");
     n1 = strlen(code);
     printf("\nThe code is: %s", code);
-    key = stringPtr(key);
+    key = stringPtr(key, "key");
     printf("\nThe key is: %s", key);
     n2 = strlen(key);
 
@@ -31,24 +30,24 @@ int encrypt_decrypt()
     */
 
     char operate[20];
-    printf("\n\nWhat operation would you like to encrypt your code to key with?\n(AND/OR/NAND/NOR/XOR): ");
-    gets_s(operate);
-    char operations[5][6] = {"and", "or", "nand", "nor", "xor"};
-    int op = -1;
-    for(int i = 0; i < 5; i++)
-    {
-        int q = 0;
-        while(operate[q] != '\0')
-        {
-             operate[q] = tolower(operate[q]);
-             q++;
-        }
-        if(strcmp(operations[i], operate) == 0)
-         {
-            op = i;
-            //printf("\nFOUND\n%i\n", op);
-         }
-    }
+    printf("\n\nWhat operation would you like to encrypt your code to key with?\n1. AND\n2. OR\n3. NAND\n 4. NOR\n5. XOR\nOperator [ex: 5]: ");
+    gets(operate);
+    //char operations[5][6] = {"and", "or", "nand", "nor", "xand" , "xor"};
+    Operator op = operate[0] - 48;
+    // for(int i = 0; i < 5; i++)
+    // {
+    //     int q = 0;
+    //     while(operate[q] != '\0')
+    //     {
+    //          operate[q] = tolower(operate[q]);
+    //          q++;
+    //     }
+    //     if(strcmp(operations[i], operate) == 0)
+    //      {
+    //         op = i;
+    //         //printf("\nFOUND\n%i\n", op);
+    //      }
+    // }
 
     int iK = 0;
 
@@ -65,9 +64,7 @@ int encrypt_decrypt()
         }
 
         char s;
-        if((key[iK] > 47 && key[iK] < 58) || (code[i] > 47 && code[i] < 58))
-            s = num_let(op, code[i], key[iK]);
-        else s = possibleActions(op, code[i], key[iK]);
+        s = possibleActions(op, code[i], key[iK]);
 
         secret[i] = s;
 
