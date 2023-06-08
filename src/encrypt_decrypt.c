@@ -1,5 +1,8 @@
 #include "encrypt_decrypt.h"
-
+/*
+Sophia Garcia
+01-31-2023
+*/
 int crypt()
 {
     //prints title of program
@@ -33,7 +36,7 @@ int crypt()
     printf("\n\nWhat operation would you like to encrypt your code to key with?\n1. AND\n2. OR\n3. NAND\n 4. NOR\n5. XOR\nOperator [ex: 5]: ");
     gets(operate);
     //char operations[5][6] = {"and", "or", "nand", "nor", "xand" , "xor"};
-    Operator op = operate[0] - 48;
+    enum Operator op = operate[0] - 48;
     // for(int i = 0; i < 5; i++)
     // {
     //     int q = 0;
@@ -88,7 +91,7 @@ int crypt()
         int num = secret[z];
         if(num < 0)
             printf("%c", num);
-        else printf("%c", char_alphabet(num));
+        else printf("%c", alphabet(num));
     }
 
     char yn[10];
@@ -97,7 +100,7 @@ int crypt()
     gets(yn);
 
     if(yn[0] == 'y' || yn[0] == 'Y')
-        char_alphabet(-1);
+        alphabet(-1);
 
     printf("\nHave a nice day!\n");
 

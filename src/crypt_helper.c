@@ -3,13 +3,12 @@
 Sophia Garcia
 01-31-2023
 */
-
 int des(char num)
 {
     int numb;
     char choice[20];
     printf("\nWould you like to treat %c as\na digit or a character?: ", num);
-    gets_s(choice);
+    gets(choice);
         if(choice[0] == 'd' || choice[0]== 'D')
             numb = num - 48;
         else numb = -1;
@@ -77,53 +76,53 @@ char* stringPtr(char* code, char* type)
 }
 
 
-char possibleActions(Operator i, char c, char k)
+char possibleActions(enum Operator i, char c, char k)
 {
     int answ;
     switch(i)
     {
-    case AND:
-        answ = c & k;
-        break;
-    case OR:
-        answ = c + k;
-        break;
-    case NAND:
-        answ = ~(c & k);
-        return answ;
-        break;
-    case NOR:
-        answ = ~(c + k);
-        break;
-    case XAND:
-        struct Binary_Form one;
-        one = ascii_to_bin(c, one);
-        struct Binary_Form two;
-        two = ascii_to_bin(k, two);
-        struct Binary_Form three = xand_operate(one, two);
-        answ = bin_to_ascii(three);
-        break;
-    case XOR:
-        answ = c ^ k;
-        break;
-    default:
-        printf("\nfuck this shit im out\n");
-        answ = 'f';
-        break;
+        case AND:
+            answ = c & k;
+            break;
+        case OR:
+            answ = c + k;
+            break;
+        case NAND:
+            answ = ~(c & k);
+            break;
+        case NOR:
+            answ = ~(c + k);
+            break;
+        case XAND:
+            answ = 0;
+            Binary_Form one = INIT_BINARY_FORM;        
+            one = ascii_to_bin(c, &one);
+            Binary_Form two = INIT_BINARY_FORM;        
+            two = ascii_to_bin(k, &two);
+            Binary_Form three = xand_operate(one, two);
+            answ = bin_to_ascii(three);
+            break;
+        case XOR:
+            answ = c ^ k;
+            break;
+        default:
+            printf("\nfuck this shit im out\n");
+            answ = 'f';
+            break;
     }
     return answ;
 }
 
-int get(int pos, Binary_Form* this_Binary)
+int get(int pos, struct Binary_Form* this_Binary)
 {
     return this_Binary->element[pos];
 }
-void replace(int val, Binary_Form* this_Binary)
+void replace(int val, struct Binary_Form* this_Binary)
 {
     this_Binary->element[this_Binary->slot] = val;
 }
 
-void replace(int val, int pos, Binary_Form* this_Binary)
+void replace_pos(int val, int pos, struct Binary_Form* this_Binary)
 {
     this_Binary->element[pos] = val;
 }
@@ -140,11 +139,11 @@ struct Binary_Form ascii_to_bin(int letter, struct Binary_Form* binary_c)
     {
         int div = letter / 2;
         --binary_c->slot;
-        binary_c = ascii_to_bin(div, binary_c);
+        *binary_c = ascii_to_bin(div, binary_c);
         int mod = letter % 2;
         replace(mod, binary_c);  
-        ++binary_c.slot;      
-        return binary_c;
+        ++binary_c->slot;      
+        return *binary_c;
     }
 }
 
@@ -153,19 +152,19 @@ int bin_to_ascii(struct Binary_Form rev)
     int res = 0;
     for(int i = 0; i < 8; ++i)
     {
-        res += exp2(rev.get(i));
+        res += exp2(get(i, &rev));
     }    
     return res;
 }
 
 struct Binary_Form xand_operate(struct Binary_Form one, struct Binary_Form two)
 {
-    struct Binary_Form temp;
+    Binary_Form temp = INIT_BINARY_FORM;
     for(int i = 0; i < 8; ++i)
     {
-        int uno = one.get(i);
-        int dos = two.get(i);
-        temp.replace(xand_each(uno, dos), i);
+        int uno = get(i, &one);
+        int dos = get(i, &two);
+        replace_pos(xand_each(uno, dos), i, &temp);
     }
 }
 
@@ -177,7 +176,7 @@ int xand_each(int c1, int c2)
 }
 
 
-char char_alphabet(int b)
+char alphabet(int b)
 {
     char alphabet[255];
 
@@ -260,6 +259,6 @@ char char_alphabet(int b)
             break;
         }
     }
-    return;
+    return '\n';
 
 }
