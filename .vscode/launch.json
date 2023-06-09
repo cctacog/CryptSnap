@@ -8,10 +8,10 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/gasop/Documents/projects/CryptSnap",
-      "program": "c:/Users/gasop/Documents/projects/CryptSnap/build/Debug/outDebug",
+      "cwd": "c:/Users/gasop/Documents/projects/CryptSnap/src",
+      "program": "c:/Users/gasop/Documents/projects/CryptSnap/src/build/Debug/outDebug",
       "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
+      "miDebuggerPath": "C:/MinGW/bin/gdb.exe",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",

@@ -19,7 +19,10 @@
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": "build",
+			"group": {
+				"isDefault": true,
+				"kind": "build"
+			},
 			"detail": "compiler: C:/MinGW/bin/gcc.exe"
 		}
 	]
