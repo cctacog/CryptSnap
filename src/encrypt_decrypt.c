@@ -2,6 +2,9 @@
 Sophia Garcia
 01-31-2023
 */
+
+#include "encrypt_decrypt.h"
+
 int crypt()
 {
     //prints title of program
@@ -35,7 +38,28 @@ int crypt()
     printf("\n\nWhat operation would you like to encrypt your code to key with?\n1. AND\n2. OR\n3. NAND\n 4. NOR\n5. XOR\nOperator [ex: 5]: ");
     gets(operate);
     //char operations[5][6] = {"and", "or", "nand", "nor", "xand" , "xor"};
-    enum Operator op = operate[0] - 48;
+    enum Operator op;
+    switch(operate[0])
+    {
+        case '1':
+            op = AND;
+            break;
+        case '2':
+            op = AND;
+            break;
+        case '3':
+            op = AND;
+            break;
+        case '4':
+            op = AND;
+            break;        
+        case '5':
+            op = AND;
+            break;
+        case '6':
+            op = XOR;
+            break;
+    }
     // for(int i = 0; i < 5; i++)
     // {
     //     int q = 0;
