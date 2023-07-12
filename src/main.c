@@ -6,4 +6,6 @@ Sophia Garcia
 int main(int argc, char* argv[])
 {
     return crypt();
+    //code to loop until user done
+    
 }

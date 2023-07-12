@@ -37,7 +37,6 @@ int crypt()
     char operate[20];
     printf("\n\nWhat operation would you like to encrypt your code to key with?\n1. AND\n2. OR\n3. NAND\n 4. NOR\n5. XOR\nOperator [ex: 5]: ");
     gets(operate);
-    //char operations[5][6] = {"and", "or", "nand", "nor", "xand" , "xor"};
     enum Operator op;
     switch(operate[0])
     {
@@ -59,21 +58,7 @@ int crypt()
         case '6':
             op = XOR;
             break;
-    }
-    // for(int i = 0; i < 5; i++)
-    // {
-    //     int q = 0;
-    //     while(operate[q] != '\0')
-    //     {
-    //          operate[q] = tolower(operate[q]);
-    //          q++;
-    //     }
-    //     if(strcmp(operations[i], operate) == 0)
-    //      {
-    //         op = i;
-    //         //printf("\nFOUND\n%i\n", op);
-    //      }
-    // }
+    }    
 
     int iK = 0;
 

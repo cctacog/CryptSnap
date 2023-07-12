@@ -15,37 +15,6 @@ int des(char num)
     return numb;
 }
 
-// char num_let(int i, char one, char two)
-// {
-//     int codeNum = -1;
-//     int keyNum = -1;
-//     /*
-//         ask user if they would like the number to
-//         be interpreted as a digit or character 0-9
-//     */
-//     if((two < 58 && two > 47))
-//     {
-//         keyNum = des(two);
-//     }
-//     if((one < 58 && one > 47))
-//     {
-//         codeNum = des(one);
-//     }
-
-//     int secret;
-
-//     if(codeNum != -1 && keyNum != -1)
-//         secret = possibleActions(i, codeNum, keyNum);
-//     else if(codeNum != -1)
-//         secret = possibleActions(i, codeNum, two);
-//     else if(keyNum != -1)
-//         secret = possibleActions(i, one, keyNum);
-//     else secret = possibleActions(i, one, two);
-
-//     return secret;
-// }
-
-
 char* stringPtr(char* code, char* type)
 {
     int w = 0, x = 1;
