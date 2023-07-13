@@ -12,26 +12,43 @@ int crypt()
 
     //the string arrays of characters to hold any lengthened string (1-100)
 
-    char* code = "";
+    // char* code = "";
 
-    char* key = "";
+    // char* key = "";
 
-    char* secret;
+    // char* secret;
 
-    int n1 = 0, n2 = 0;
+    // int n1 = 0, n2 = 0;
 
-    code = stringPtr(code, "code");
+    // code = stringPtr(code, "code");
+    // n1 = strlen(code);
+    // printf("\nThe code is: %s", code);
+    // key = stringPtr(key, "key");
+    // printf("\nThe key is: %s", key);
+    // n2 = strlen(key);
+
+    // secret = (char*)malloc(n1 * sizeof(char));
+
+    /*
+        to keep is simple
+        no malloc 
+        no leaking memorey
+    */
+    char code[100];
+    char key[100];
+    char secret[100];
+    int n1, n2 = 0;
+    printf("Enter code: ");
+    gets(code);
     n1 = strlen(code);
-    printf("\nThe code is: %s", code);
-    key = stringPtr(key, "key");
-    printf("\nThe key is: %s", key);
+    printf("Enter key: ");
+    gets(key);    
     n2 = strlen(key);
 
-    secret = (char*)malloc(n1 * sizeof(char));
 
     /*
     encrypts each array location of secret (equal to the lengths of the code/key)
-    from the xor operation of the code and key at the said array location
+    from the operation of the code and key at the said array location
     */
 
     char operate[20];
@@ -112,9 +129,9 @@ int crypt()
 
     printf("\nHave a nice day!\n");
 
-    free(code);
-    free(key);
-    free(secret);
+    // free(code);
+    // free(key);
+    // free(secret); only needed when using malloc 
 
     return 0;
 }

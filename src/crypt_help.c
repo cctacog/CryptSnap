@@ -3,46 +3,47 @@
 Sophia Garcia
 01-31-2023
 */
-int des(char num)
-{
-    int numb;
-    char choice[20];
-    printf("\nWould you like to treat %c as\na digit or a character?: ", num);
-    gets(choice);
-        if(choice[0] == 'd' || choice[0]== 'D')
-            numb = num - 48;
-        else numb = -1;
-    return numb;
-}
 
-char* stringPtr(char* code, char* type)
-{
-    int w = 0, x = 1;
-    int m1;
+// int des(char num)
+// {
+//     int numb;
+//     char choice[20];
+//     printf("\nWould you like to treat %c as\na digit or a character?: ", num);
+//     gets(choice);
+//         if(choice[0] == 'd' || choice[0]== 'D')
+//             numb = num - 48;
+//         else numb = -1;
+//     return numb;
+// }
 
-    code = (char*)malloc(sizeof(char));
+// char* stringPtr(char* code, char* type)
+// {
+//     int w = 0, x = 1;
+//     int m1;
 
-    printf("\nEnter %s: ", type);
+//     code = (char*)malloc(sizeof(char));
 
-    while (m1 != EOF)
-    {
-        // read the input from keyboard standard input
-        m1 = getchar();
+//     printf("\nEnter %s: ", type);
 
-        // re-allocate (resize) memory for character read to be stored
-        code = (char*)realloc(code, x * sizeof(char));
+//     while (m1 != '\n')
+//     {
+//         // read the input from keyboard standard input
+//         m1 = getchar();
 
-        // store read character by making pointer point to c
-        code[w] = m1;
+//         // re-allocate (resize) memory for character read to be stored
+//         code = (char*)realloc(code, x * sizeof(char));
 
-        w++;
-        x++;
-     }
+//         // store read character by making pointer point to c
+//         code[w] = m1;
 
-    code[w-1] = '\0'; // at the end append null character to mark end of string
+//         w++;
+//         x++;
+//      }
 
-    return code;
-}
+//     code[w-1] = '\0'; // at the end append null character to mark end of string
+
+//     return code;
+// }
 
 
 char possibleActions(enum Operator i, char c, char k)
@@ -82,7 +83,7 @@ char possibleActions(enum Operator i, char c, char k)
     return answ;
 }
 
-int get(int pos, struct Binary_Form* this_Binary)
+int get_O(int pos, struct Binary_Form* this_Binary)
 {
     return this_Binary->element[pos];
 }
@@ -121,7 +122,7 @@ int bin_to_ascii(struct Binary_Form rev)
     int res = 0;
     for(int i = 0; i < 8; ++i)
     {
-        res += exp2(get(i, &rev));
+        res += exp2(get_O(i, &rev));
     }    
     return res;
 }
@@ -131,8 +132,8 @@ struct Binary_Form xand_operate(struct Binary_Form one, struct Binary_Form two)
     Binary_Form temp = INIT_BINARY_FORM;
     for(int i = 0; i < 8; ++i)
     {
-        int uno = get(i, &one);
-        int dos = get(i, &two);
+        int uno = get_O(i, &one);
+        int dos = get_O(i, &two);
         replace_pos(xand_each(uno, dos), i, &temp);
     }
 }
