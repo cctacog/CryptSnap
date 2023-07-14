@@ -85,20 +85,24 @@ char possibleActions(enum Operator i, char c, char k)
 
 int get_O(int pos, struct Binary_Form* this_Binary)
 {
+    printf("get_o op");
     return this_Binary->element[pos];
 }
 void replace(int val, struct Binary_Form* this_Binary)
 {
+    printf("replace op");
     this_Binary->element[this_Binary->slot] = val;
 }
 
 void replace_pos(int val, int pos, struct Binary_Form* this_Binary)
 {
+    printf("replace_pos op");
     this_Binary->element[pos] = val;
 }
 
 struct Binary_Form ascii_to_bin(int letter, struct Binary_Form* binary_c)
 {    
+    printf("ascii_to_bin op");
     if(letter == 1)
     {
         replace(1, binary_c);
@@ -119,6 +123,7 @@ struct Binary_Form ascii_to_bin(int letter, struct Binary_Form* binary_c)
 
 int bin_to_ascii(struct Binary_Form rev)
 {
+    printf("bin_to_ascii op");
     int res = 0;
     for(int i = 0; i < 8; ++i)
     {
@@ -129,6 +134,7 @@ int bin_to_ascii(struct Binary_Form rev)
 
 struct Binary_Form xand_operate(struct Binary_Form one, struct Binary_Form two)
 {
+    printf("xan_operate op");
     Binary_Form temp = INIT_BINARY_FORM;
     for(int i = 0; i < 8; ++i)
     {
@@ -140,6 +146,7 @@ struct Binary_Form xand_operate(struct Binary_Form one, struct Binary_Form two)
 
 int xand_each(int c1, int c2)
 {
+    printf("xand_each op");
     if(c1 + c2 == 2 || c1 + c2 == 0)
         return 1;
     return 0;
