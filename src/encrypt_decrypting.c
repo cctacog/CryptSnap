@@ -85,7 +85,7 @@ int crypt()
         because a character cannot xor itself the
         array location will equal the said character
         */
-        if(code[i] == key[iK])
+        if(code[i] == key[iK] && op == XOR)
         {
             secret[i] = code[i];
             continue;
