@@ -52,7 +52,7 @@ int crypt()
     */
 
     char operate[20];
-    printf("\n\nWhat operation would you like to encrypt your code to key with?\n1. AND\n2. OR\n3. NAND\n4. NOR\n5. XAND\n6. XOR\nOperator [ex: 5]: ");
+    printf("\n\nWhat operation would you like to encrypt your code to key with?\n1. AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator [ex: 5]: ");
     gets(operate);
     enum Operator op;
     switch(operate[0])
@@ -70,10 +70,10 @@ int crypt()
             op = NOR;
             break;        
         case '5':
-            op = XAND;
+            op = XOR;
             break;
         case '6':
-            op = XOR;
+            op = XNOR;
             break;
     }    
 
