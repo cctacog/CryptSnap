@@ -25,7 +25,7 @@ char possibleActions(enum Operator i, char c, char k)
             answ = c ^ k;
             break;
         case XNOR:
-            answ = !(c ^ k);
+            answ = ~(c ^ k);
             break;
         default:
             perror("Error by input");
@@ -45,80 +45,45 @@ char alphabet(int b)
         alphabet[i] = i;
     }
 
-    switch(b)
+    if(b >= 0)
     {
-    case -1:
-        for(int i = 0; i < 255; i++)
-        {
-            printf("Ascii character of %i is: ", i);
-            switch(i)
-            {
-                case 0:
-                    printf("NULL");
-                    break;
-                case 7:
-                    printf("BEL");
-                    break;
-                case 8:
-                    printf("BS");
-                    break;
-                case 9:
-                    printf("HT");
-                    break;
-                case 10:
-                    printf("LF");
-                    break;
-                case 13:
-                    printf("CR");
-                    break;
-                case 32:
-                    printf("SPACE");
-                    break;
-                default:
-                    printf("%c", alphabet[i]);
-                    break;
-            }
-            if(((i+1) % 2 == 0))
-            printf("\n");
-            else printf("\t");
-        }
-        break;
-    default:
-        if(b < 0)
-        {
-            printf("\n((:%i))\n", b);
-            int end = 256;
-            b -= end;
-            printf("\n((:%i))\n", b);
-        }
-        switch(b)
-        {
-        case 0:
-            printf("[NULL]");
-            break;
-        case 7:
-            printf("[BEL]");
-            break;
-        case 8:
-            printf("[BS]");
-            break;
-        case 9:
-            printf("[HT]");
-            break;
-        case 10:
-            printf("[LF]");
-            break;
-        case 13:
-            printf("[CR]");
-            break;
-        case 32:
-            printf("[SPACE]");
-            break;
-        default:
-            return alphabet[b];
-            break;
-        }
+        return alphabet_print(alphabet, b);            
     }
-    return '\n';
+    else
+    {
+        return alphabet_print_listed(alphabet);        
+    }        
+}
 
+char alphabet_print_listed(char alphabet[])
+{
+    const char non_printable[33][5] = {"NULL", "SOH", "STX", "ETX", "EOT", "ENQ", "ACK", 
+    "BEL", "BS", "TAB", "LF", "VT", "FF", "SO", "SI", "DLE", "DC1", "DC2", "DC3", "DC4", 
+    "NAK", "SYN", "CAN", "EM", "SUB", "ESC", "SUB", "ESC", "FS", "GS", "RS", "US", "SPACE" };
+    char move;
+    for(int i = 0; i < 255; i++)
+    {
+        printf("Ascii character of %i: ", i);
+        if(i < 33)
+        {
+            printf(non_printable[i]);
+        }
+        else
+        {
+            printf("%c", alphabet[i]);
+        }
+        if((i+1) % 2 == 0)
+            move = '\n';
+        else move = '\t';
+        printf("%c", move);
+    }       
+    return move;
+}
+
+char alphabet_print(char alphabet[], int letter)
+{
+    if(letter > 13 )
+    {
+        return alphabet[letter];
+    }
 }

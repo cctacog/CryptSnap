@@ -10,25 +10,6 @@ int crypt()
     //prints title of program
     printf("\nENCRYPTION!\n\n\n");
 
-    //the string arrays of characters to hold any lengthened string (1-100)
-
-    // char* code = "";
-
-    // char* key = "";
-
-    // char* secret;
-
-    // int n1 = 0, n2 = 0;
-
-    // code = stringPtr(code, "code");
-    // n1 = strlen(code);
-    // printf("\nThe code is: %s", code);
-    // key = stringPtr(key, "key");
-    // printf("\nThe key is: %s", key);
-    // n2 = strlen(key);
-
-    // secret = (char*)malloc(n1 * sizeof(char));
-
     /*
         to keep is simple
         no malloc 
@@ -85,7 +66,7 @@ int crypt()
         because a character cannot xor itself the
         array location will equal the said character
         */
-        if(code[i] == key[iK] && op == XOR)
+        if(code[i] == key[iK] && (op == XOR || op == XNOR))
         {
             secret[i] = code[i];
             continue;
@@ -119,15 +100,15 @@ int crypt()
         else printf("%c", alphabet(num));
     }
 
-    char yn[10];
+    char replay [10];
 
-    printf("\n\nWould you like to see the C ascii alphabet?: ");
-    gets(yn);
+    printf("\n\nWould you care to play again?: [ex: yes]  ");
+    gets(replay);
 
-    if(yn[0] == 'y' || yn[0] == 'Y')
-        alphabet(-1);
-
-    printf("\nHave a nice day!\n");
+    if(replay[0] == 'y')
+    {
+        return 1;        
+    }
 
     // free(code);
     // free(key);
