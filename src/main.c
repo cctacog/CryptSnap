@@ -5,11 +5,13 @@ Sophia Garcia
 #include "encrypt_decrypt.h"
 int main(int argc, char* argv[])
 {
-    int replay = 1;
-    while(replay == 1)
+    The_Round game;
+    do
     {
-        replay = crypt();
+        game = crypt(game);
     }
+    while(game.play_again == 1);
+    
     char yn[10];
     printf("\n\nWould you like to see the C ascii alphabet?: [ex: yes] ");
     gets(yn);
@@ -18,7 +20,7 @@ int main(int argc, char* argv[])
         alphabet(-1);
 
     printf("\nHave a nice day!\n");
-    return replay;
+    return 0;
     //code to loop until user done
     
 }

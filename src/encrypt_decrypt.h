@@ -6,6 +6,6 @@
 Sophia Garcia
 01-31-2023
 */
-int crypt();
+The_Round crypt(const The_Round terms_);
 
 #endif

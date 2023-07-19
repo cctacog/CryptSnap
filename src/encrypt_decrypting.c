@@ -5,7 +5,7 @@ Sophia Garcia
 
 #include "encrypt_decrypt.h"
 
-int crypt()
+The_Round crypt(const The_Round terms_)
 {
     //prints title of program
     printf("\nENCRYPTION!\n\n\n");
@@ -15,16 +15,20 @@ int crypt()
         no malloc 
         no leaking memorey
     */
-    char code[100];
-    char key[100];
-    char secret[100];
-    int n1, n2 = 0;
-    printf("Enter code: ");
-    gets(code);
-    n1 = strlen(code);
-    printf("Enter key: ");
-    gets(key);    
-    n2 = strlen(key);
+    The_Round terms;
+    if(terms_.code[0] == '\0')
+    {        
+        printf("Enter code: ");
+        gets(terms.code);
+        terms.code_len = strlen(terms.code);
+        printf("Enter key: ");
+        gets(terms.key);   
+    } 
+    else
+    {
+        transfer(terms_, &terms);
+    }
+    
 
 
     /*
@@ -33,7 +37,7 @@ int crypt()
     */
 
     char operate[20];
-    printf("\n\nWhat operation would you like to encrypt your code to key with?\n1. AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator [ex: 5]: ");
+    printf("\n\nWhat operation would you like to encrypt your code to key with?\n1.AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator [ex: 5]: ");
     gets(operate);
     enum Operator op;
     switch(operate[0])
@@ -60,41 +64,41 @@ int crypt()
 
     int iK = 0;
 
-    for(int i = 0; (i < n1) && (code[i] != '\0'); i++)
+    for(int i = 0; (i < terms.code_len) && (terms.code[i] != '\0'); i++)
     {
         /*
         because a character cannot xor itself the
         array location will equal the said character
         */
-        if(code[i] == key[iK] && (op == XOR || op == XNOR))
+        if(terms.code[i] == terms.key[iK] && (op == XOR || op == XNOR))
         {
-            secret[i] = code[i];
+            terms.secret[i] = terms.code[i];
             continue;
         }
 
         char s;
-        s = possibleActions(op, code[i], key[iK]);
+        s = possibleActions(op, terms.code[i], terms.key[iK]);
 
-        secret[i] = s;
+        terms.secret[i] = s;
 
         /*
-        if code about to end at the i+1 location
+        if terms.code about to end at the i+1 location
         then the secret will end at i+1
         */
         iK++;
 
-        if(code[i+1] == '\0')
-            secret[i+1] = '\0';
-        if(key[iK] == '\0')
+        if(terms.code[i+1] == '\0')
+            terms.secret[i+1] = '\0';
+        if(terms.key[iK] == '\0')
             iK = 0;
     }
 
     //print final product
     printf("\nThe secret: ");
 
-    for(int z = 0; z < n1; z++)
+    for(int z = 0; z < terms.code_len; z++)
     {
-        int num = secret[z];
+        int num = terms.secret[z];
         if(num < 0)
             printf("%c", num);
         else printf("%c", alphabet(num));
@@ -107,13 +111,13 @@ int crypt()
 
     if(replay[0] == 'y')
     {
-        return 1;        
+        terms.play_again = 1;       
     }
 
     // free(code);
     // free(key);
     // free(secret); only needed when using malloc 
 
-    return 0;
+    return terms;
 }
 
