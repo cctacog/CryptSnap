@@ -95,8 +95,5 @@ char alphabet_print_listed(char alphabet[])
 
 char alphabet_print(char alphabet[], int letter)
 {
-    if(letter > 13 )
-    {
-        return alphabet[letter];
-    }
+    return alphabet[letter];    
 }
