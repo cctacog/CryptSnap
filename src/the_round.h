@@ -1,8 +1,8 @@
 #ifndef THE_ROUND
 #define THE_ROUND
 
-#include "reference.h"
-#include "crypt_helper.h"
+#include "stack_ops.h"
+#include "queue_ops.h"
 
 typedef struct The_Round
 {

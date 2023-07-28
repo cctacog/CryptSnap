@@ -1,10 +1,7 @@
 #ifndef CRYPT_HELPER
 #define CRYPT_HELPER
 
-#include "reference.h"
 #include "the_round.h"
-#include "stack_ops.h"
-#include "queue_ops.h"
 
 /*
 Sophia Garcia
