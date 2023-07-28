@@ -10,20 +10,20 @@ int isEmpty_s(const Stack *stack)
 }
 void push(Stack *stack, enum Operator op)
 {
-    if(isFull(stack))
+    if(isFull_s(stack))
         return;
     stack->arr[++stack->top] = op;
     printf("PUSHED\n");
 }
 enum Operator pop(Stack *stack)
 {
-    if(isEmpty(stack))
+    if(isEmpty_s(stack))
         return INT_MIN;
     return stack->arr[stack->top--];    
 }
 enum Operator peek_s(const Stack *stack)
 {
-    if(isEmpty(stack))
+    if(isEmpty_s(stack))
         return INT_MIN; 
     return stack->arr[stack->top];
 }
