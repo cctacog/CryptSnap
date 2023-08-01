@@ -72,23 +72,22 @@ void secret_thru_queue(The_Round *terms)
 void secret_thru_stack(The_Round *terms)
 {
     int iK = 0;
-    for(int q = 0; isEmpty_s(&(terms->stack)) == 1; ++q)
+    for(int s = 0; isEmpty_s(&(terms->stack)) == 1; ++s)
     {
         enum Operator op = pop(&(terms->stack));
-        for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); i++)
+        for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0'); i++)
         {
             /*
             because a character cannot xor itself the
             array location will equal the said character
             */
-            if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
-            {
-                terms->secret[i] = terms->code[i];
+            if(terms->secret[i] == terms->key[iK] && (op == XOR || op == XNOR))
+            {                
                 continue;
             }
 
             char s;
-            s = possibleActions(op, terms->code[i], terms->key[iK]);
+            s = possibleActions(op, terms->secret[i], terms->key[iK]);
 
             terms->secret[i] = s;
 
@@ -97,9 +96,7 @@ void secret_thru_stack(The_Round *terms)
             then the secret will end at i+1
             */
             iK++;
-
-            if(terms->code[i+1] == '\0')
-                terms->secret[i+1] = '\0';
+            
             if(terms->key[iK] == '\0')
                 iK = 0;
         }
