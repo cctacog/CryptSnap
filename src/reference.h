@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX 20
+
 enum Operator {AND, OR, NAND, NOR, XOR, XNOR, NONE} Operator;
 
 #endif

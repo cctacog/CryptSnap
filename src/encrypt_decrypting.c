@@ -22,14 +22,16 @@ The_Round crypt(const The_Round terms_)
         gets(terms.code);
         terms.code_len = strlen(terms.code);
         printf("Enter key: ");
-        gets(terms.key);   
+        gets(terms.key);  
+        def_values_q(&terms.queue);
+        def_values_s(&terms.stack); 
     } 
     else
     {
         transfer(terms_, &terms);
+        empty_q(&terms);
+        empty_s(&terms);
     }
-    
-
 
     /*
     encrypts each array location of secret (equal to the lengths of the code/key)
@@ -37,29 +39,35 @@ The_Round crypt(const The_Round terms_)
     */
 
     char operate[20];
-    printf("\n\nWhat operation would you like to encrypt your code to key with?\n1.AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator [ex: 5]: ");
+    printf("\n\nWhat operation(s) would you like to encrypt with?\n1.AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator(s) [ex: 5231 or 2]: ");
     gets(operate);
     enum Operator op;
-    switch(operate[0])
+    for(int i = 0; i < 20 && operate[i] != '\0'; ++i)
     {
-        case '1':
-            op = AND;
-            break;
-        case '2':
-            op = OR;
-            break;
-        case '3':
-            op = NAND;
-            break;
-        case '4':
-            op = NOR;
-            break;        
-        case '5':
-            op = XOR;
-            break;
-        case '6':
-            op = XNOR;
-            break;
+        switch(operate[0])
+        {
+            case '1':
+                op = AND;            
+                break;
+            case '2':
+                op = OR;
+                break;
+            case '3':
+                op = NAND;
+                break;
+            case '4':
+                op = NOR;
+                break;        
+            case '5':
+                op = XOR;
+                break;
+            case '6':
+                op = XNOR;
+                break;
+            //terms.queue        
+        }
+        insert_q(&terms, op);
+        push(&terms, op);
     }    
 
     int iK = 0;
