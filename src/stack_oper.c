@@ -1,5 +1,11 @@
 #include "stack_ops.h"
 
+void def_values_s(Stack *stack)
+{
+    stack->capacity = MAX;
+    stack->top = 0;
+}
+
 int isFull_s(const Stack *stack)
 {
     return stack->top == stack->capacity - 1;

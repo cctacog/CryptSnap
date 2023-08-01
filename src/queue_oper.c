@@ -1,5 +1,12 @@
 #include "queue_ops.h"
 
+void def_values_q(Queue * queue)
+{
+    queue->front = 0;
+    queue->rear = 0;
+    queue->item_Count = 0;
+}
+
 int isFull_q(const Queue *queue)
 {
     return queue->item_Count == MAX;

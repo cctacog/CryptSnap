@@ -1,7 +1,6 @@
 #ifndef QUEUE_OPS
 #define QUEUE_OPS
 
-#define MAX 20
 #include "reference.h"
 
 typedef struct Queue
@@ -12,6 +11,7 @@ typedef struct Queue
     int item_Count;
 } Queue;
 
+void def_values_q(Queue * queue);
 int isFull_q(const Queue *queue);
 int isEmpty_q(const Queue *queue);
 int size_q(const Queue *queue);

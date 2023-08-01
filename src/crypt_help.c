@@ -17,6 +17,21 @@ void transfer(const The_Round terms_1, The_Round *terms_2)
     }
 }
 
+void empty_q(The_Round *terms_)
+{
+    for(int i = terms_->queue.item_Count; i > 0; --i)
+    {        
+        remove_q(&(terms_->queue));
+    }
+}
+void empty_s(The_Round *terms_)
+{
+    for(int i = 0; i < MAX && isEmpty_s(&(terms_->stack)) == 1; ++i)
+    {
+        pop(&(terms_->stack));
+    }
+}
+
 char possibleActions(enum Operator i, char c, char k)
 {
     int answ;
