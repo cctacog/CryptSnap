@@ -39,7 +39,7 @@ The_Round crypt(const The_Round terms_)
     */
 
     char operate[20];
-    printf("\n\nWhat operation(s) would you like to encrypt with?\n1.AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator(s) [ex: 5231 or 2]: ");
+    printf("\n\nWhat operation(s) would you like to use?\n1.AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator(s) [ex: 5231 or 2]: ");
     gets(operate);
     enum Operator op;
     for(int i = 0; i < 20 && operate[i] != '\0'; ++i)
@@ -66,43 +66,24 @@ The_Round crypt(const The_Round terms_)
                 break;
             //terms.queue        
         }
-        insert_q(&terms, op);
-        push(&terms, op);
+        insert(&(terms.queue), op);
+        push(&(terms.stack), op);
     }    
 
-    int iK = 0;
+    secret_thru_queue(&terms);
+    //print final product
+    printf("\nThe secret after encrypting: ");
 
-    for(int i = 0; (i < terms.code_len) && (terms.code[i] != '\0'); i++)
+    for(int z = 0; z < terms.code_len; z++)
     {
-        /*
-        because a character cannot xor itself the
-        array location will equal the said character
-        */
-        if(terms.code[i] == terms.key[iK] && (op == XOR || op == XNOR))
-        {
-            terms.secret[i] = terms.code[i];
-            continue;
-        }
-
-        char s;
-        s = possibleActions(op, terms.code[i], terms.key[iK]);
-
-        terms.secret[i] = s;
-
-        /*
-        if terms.code about to end at the i+1 location
-        then the secret will end at i+1
-        */
-        iK++;
-
-        if(terms.code[i+1] == '\0')
-            terms.secret[i+1] = '\0';
-        if(terms.key[iK] == '\0')
-            iK = 0;
+        int num = terms.secret[z];
+        if(num < 0)
+            printf("%c", num);
+        else printf("%c", alphabet(num));
     }
 
-    //print final product
-    printf("\nThe secret: ");
+    secret_thru_stack(&terms);
+    printf("\nThe secret after decrypting: ");
 
     for(int z = 0; z < terms.code_len; z++)
     {

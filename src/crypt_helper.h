@@ -9,6 +9,8 @@ Sophia Garcia
 */
 
 //calculator functions
+void secret_thru_queue(The_Round *terms);
+void secret_thru_stack(The_Round *terms);
 char possibleActions(enum Operator i, char c, char k);
 char alphabet(int b);
 char alphabet_print_listed(char alphabet[]);
