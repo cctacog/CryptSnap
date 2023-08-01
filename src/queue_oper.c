@@ -15,11 +15,11 @@ int isEmpty_q(const Queue *queue)
 {
     return queue->item_Count == 0;
 }
-int size_q(const Queue *queue)
+int size(const Queue *queue)
 {
     return queue->item_Count;
 }
-void insert_q(Queue *queue, enum Operator op)
+void insert(Queue *queue, enum Operator op)
 {
     if(isFull_q(queue))
         return;

@@ -14,8 +14,8 @@ typedef struct Queue
 void def_values_q(Queue * queue);
 int isFull_q(const Queue *queue);
 int isEmpty_q(const Queue *queue);
-int size_q(const Queue *queue);
-void insert_q(Queue *queue, enum Operator op);
+int size(const Queue *queue);
+void insert(Queue *queue, enum Operator op);
 enum Operator remove_q(Queue *queue);
 enum Operator peek_q(const Queue *queue);
 
