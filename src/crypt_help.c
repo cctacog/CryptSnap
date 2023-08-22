@@ -35,8 +35,8 @@ void empty_s(The_Round *terms_)
 void secret_thru_queue(The_Round *terms)
 {
     int iK = 0;
-    printf("before for loop1\n%i");
-    for(int q = 0; isEmpty_q(&(terms->queue)) == 1; ++q)
+    printf("before for loop1: %i\n", isEmpty_q(&(terms->queue)));
+    for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
     {
         printf("before for loop2");
         enum Operator op = remove_q(&(terms->queue));
@@ -77,7 +77,7 @@ void secret_thru_queue(The_Round *terms)
 void secret_thru_stack(The_Round *terms)
 {
     int iK = 0;
-    for(int s = 0; isEmpty_s(&(terms->stack)) == 1; ++s)
+    for(int s = 0; isEmpty_s(&(terms->stack)) == 0; ++s)
     {
         enum Operator op = pop(&(terms->stack));
         for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0'); i++)

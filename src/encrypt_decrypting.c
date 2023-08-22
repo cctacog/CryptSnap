@@ -17,15 +17,27 @@ The_Round crypt(const The_Round terms_)
     */
     The_Round terms;
     char prev_use[MAX];
-    printf("Would you like to use the previous code & key? [ex: no]: ");
-    gets(prev_use);
-
-    if(prev_use[0] == 'y' || prev_use[0] == 'Y')
-    {       
-        transfer(terms_, &terms);
-        empty_q(&terms);
-        empty_s(&terms);         
-    } 
+    if(terms_.code[0] != '\0')
+    {
+        printf("Would you like to use the previous code & key? [ex: no]: ");
+        gets(prev_use);
+        if(prev_use[0] == 'y' || prev_use[0] == 'Y')
+        {       
+            transfer(terms_, &terms);
+            empty_q(&terms);
+            empty_s(&terms);         
+        }         
+         else
+        {
+            printf("Enter code: ");
+            gets(terms.code);
+            terms.code_len = strlen(terms.code);
+            printf("Enter key: ");
+            gets(terms.key);  
+            def_values_q(&terms.queue);
+            def_values_s(&terms.stack);
+        }
+    }
     else
     {
         printf("Enter code: ");
@@ -36,6 +48,8 @@ The_Round crypt(const The_Round terms_)
         def_values_q(&terms.queue);
         def_values_s(&terms.stack);
     }
+    
+    
 
     /*
     encrypts each array location of secret (equal to the lengths of the code/key)
