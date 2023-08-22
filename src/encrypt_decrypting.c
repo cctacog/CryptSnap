@@ -57,30 +57,40 @@ The_Round crypt(const The_Round terms_)
     */
 
     char operate[MAX];
-    printf("\n\nWhat operation(s) would you like to use?\n1.AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator(s) [ex: 5231 or 2]: ");
+    printf("\n\nWhat operation(s) would you like to use?\n1. AND\n2. OR\n3. NAND\n4. NOR\n5. XOR\n6. XNOR\nOperator(s) [ex: 5231 or 2]: ");
     gets(operate);
     enum Operator op;
     for(int i = 0; i < 20 && operate[i] != '\0'; ++i)
     {
-        switch(operate[0])
+        switch(operate[i])
         {
             case '1':
                 op = AND;            
+                printf("cookies & cream :) AND\n");
                 break;
             case '2':
                 op = OR;
+                printf("cookies & cream :) OR\n");
                 break;
             case '3':
                 op = NAND;
+                printf("cookies & cream :) NAND\n");
                 break;
             case '4':
                 op = NOR;
+                printf("cookies & cream :) NOR\n");
                 break;        
             case '5':
                 op = XOR;
+                printf("cookies & cream :) XOR\n");
                 break;
             case '6':
                 op = XNOR;
+                printf("cookies & cream :) XNOR\n");
+                break;
+            default:
+                printf("cookies & cream :) NONE\n");
+                op = NONE;
                 break;
             //terms.queue        
         }

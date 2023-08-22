@@ -38,9 +38,10 @@ void secret_thru_queue(The_Round *terms)
     printf("before for loop1: %i\n", isEmpty_q(&(terms->queue)));
     for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
     {
-        printf("before for loop2");
+        printf("before for loop2\n");
         enum Operator op = remove_q(&(terms->queue));
-        for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); i++)
+        printf("operator: %i\n", op);
+        for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); ++i)
         {
             /*
             because a character cannot xor itself the
@@ -80,7 +81,7 @@ void secret_thru_stack(The_Round *terms)
     for(int s = 0; isEmpty_s(&(terms->stack)) == 0; ++s)
     {
         enum Operator op = pop(&(terms->stack));
-        for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0'); i++)
+        for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0'); ++i)
         {
             /*
             because a character cannot xor itself the
@@ -110,7 +111,7 @@ void secret_thru_stack(The_Round *terms)
 
 char possibleActions(enum Operator i, char c, char k)
 {
-    int answ;
+    int answ = 0;
     switch(i)
     {
         case AND:
@@ -130,6 +131,9 @@ char possibleActions(enum Operator i, char c, char k)
             break;
         case XNOR:
             answ = ~(c ^ k);
+            break;
+        case NONE:
+            printf("oops\n");
             break;
         default:
             perror("Error by input");
