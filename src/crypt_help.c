@@ -39,8 +39,34 @@ void secret_thru_queue(The_Round *terms)
     for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
     {
         printf("before for loop2\n");
-        enum Operator op = remove_q(&(terms->queue));
-        printf("operator: %i\n", op);
+        enum Operator op = remove_q(&(terms->queue));        
+        switch(op)
+        {
+            case AND:
+                printf("operator: AND");
+                break;
+            case OR:
+                printf("operator: AND");
+                break;
+            case NAND:
+                printf("operator: AND");
+                break;
+            case NOR:
+                printf("operator: AND");
+                break;
+            case XOR:
+                printf("operator: AND");
+                break;
+            case XNOR:
+                printf("operator: AND");
+                break;
+            case NONE:
+                printf("oops\n");
+                break;
+            default:
+                perror("NONE FOUND");            
+                break;
+        }
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); ++i)
         {
             /*
@@ -53,7 +79,7 @@ void secret_thru_queue(The_Round *terms)
                 continue;
             }
 
-            printf("code char: %c \n", terms->code[i]);
+            printf("\ncode char: %c \n", terms->code[i]);
             printf("key char: %c \n", terms->key[i]);
 
             char s;
