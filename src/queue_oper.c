@@ -3,13 +3,13 @@
 void def_values_q(Queue * queue)
 {
     queue->front = 0;
-    queue->rear = 0;
+    queue->rear = 1;
     queue->item_Count = 0;
 }
 
 int isFull_q(const Queue *queue)
 {
-    return queue->item_Count == MAX;
+    return queue->rear == queue->front;
 }
 
 int isEmpty_q(const Queue *queue)
@@ -29,7 +29,7 @@ void insert(Queue *queue, enum Operator op)
         return;
     }
     queue->rear = (queue->rear + 1) % MAX;
-    queue->array[queue->rear] = op;
+    queue->array[queue->rear-1] = op;
     queue->item_Count = queue->item_Count + 1;
     //printf("pushed\n");
 }

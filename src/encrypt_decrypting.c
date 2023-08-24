@@ -83,7 +83,7 @@ The_Round crypt(const The_Round terms_)
                 op = XNOR;
                 break;
             default:               
-                op = NONE;
+                perror("none\n");
                 break;
             //terms.queue        
         }

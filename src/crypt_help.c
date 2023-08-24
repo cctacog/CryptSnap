@@ -35,7 +35,7 @@ void empty_s(The_Round *terms_)
 void secret_thru_queue(The_Round *terms)
 {
     int iK = 0;
-    remove_q(&(terms->queue)); 
+    //remove_q(&(terms->queue)); 
 
     printf("before for loop1 queue size: %i\n", size(&(terms->queue)));
     for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
