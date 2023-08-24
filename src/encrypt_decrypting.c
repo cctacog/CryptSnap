@@ -65,31 +65,24 @@ The_Round crypt(const The_Round terms_)
         switch(operate[i])
         {
             case '1':
-                op = AND;            
-                printf("cookies & cream :) AND\n");
+                op = AND;                            
                 break;
             case '2':
-                op = OR;
-                printf("cookies & cream :) OR\n");
+                op = OR;                
                 break;
             case '3':
-                op = NAND;
-                printf("cookies & cream :) NAND\n");
+                op = NAND;                
                 break;
             case '4':
-                op = NOR;
-                printf("cookies & cream :) NOR\n");
+                op = NOR;                
                 break;        
             case '5':
-                op = XOR;
-                printf("cookies & cream :) XOR\n");
+                op = XOR;                
                 break;
             case '6':
                 op = XNOR;
-                printf("cookies & cream :) XNOR\n");
                 break;
-            default:
-                printf("cookies & cream :) NONE\n");
+            default:               
                 op = NONE;
                 break;
             //terms.queue        

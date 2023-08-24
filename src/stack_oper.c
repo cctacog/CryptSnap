@@ -8,18 +8,18 @@ void def_values_s(Stack *stack)
 
 int isFull_s(const Stack *stack)
 {
-    return stack->top == stack->capacity - 1;
+    return stack->top == stack->capacity;
 }
 int isEmpty_s(const Stack *stack)
 {
-    return stack->top == -1;
+    return stack->top == 0;
 }
 void push(Stack *stack, enum Operator op)
 {
     if(isFull_s(stack))
         return;
     stack->arr[++stack->top] = op;
-    printf("PUSHED\n");
+    //printf("PUSHED\n");
 }
 enum Operator pop(Stack *stack)
 {

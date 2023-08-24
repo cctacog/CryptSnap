@@ -35,7 +35,9 @@ void empty_s(The_Round *terms_)
 void secret_thru_queue(The_Round *terms)
 {
     int iK = 0;
-    printf("before for loop1: %i\n", isEmpty_q(&(terms->queue)));
+    remove_q(&(terms->queue)); 
+
+    printf("before for loop1 queue size: %i\n", size(&(terms->queue)));
     for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
     {
         printf("before for loop2\n");
@@ -43,22 +45,22 @@ void secret_thru_queue(The_Round *terms)
         switch(op)
         {
             case AND:
-                printf("operator: AND");
+                printf("operator: AND\n");
                 break;
             case OR:
-                printf("operator: AND");
+                printf("operator: OR\n");
                 break;
             case NAND:
-                printf("operator: AND");
+                printf("operator: NAND\n");
                 break;
             case NOR:
-                printf("operator: AND");
+                printf("operator: NOR\n");
                 break;
             case XOR:
-                printf("operator: AND");
+                printf("operator: XOR\n");
                 break;
             case XNOR:
-                printf("operator: AND");
+                printf("operator: XNOR\n");
                 break;
             case NONE:
                 printf("oops\n");
@@ -107,7 +109,34 @@ void secret_thru_stack(The_Round *terms)
     for(int s = 0; isEmpty_s(&(terms->stack)) == 0; ++s)
     {
         enum Operator op = pop(&(terms->stack));
-        for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0'); ++i)
+        switch(op)
+        {
+            case AND:
+                printf("operator: AND\n");
+                break;
+            case OR:
+                printf("operator: OR\n");
+                break;
+            case NAND:
+                printf("operator: NAND\n");
+                break;
+            case NOR:
+                printf("operator: NOR\n");
+                break;
+            case XOR:
+                printf("operator: XOR\n");
+                break;
+            case XNOR:
+                printf("operator: XNOR\n");
+                break;
+            case NONE:
+                printf("oops\n");
+                break;
+            default:
+                perror("NONE FOUND");            
+                break;
+        }
+        for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0') && op != NONE; ++i)
         {
             /*
             because a character cannot xor itself the
