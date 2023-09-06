@@ -42,33 +42,7 @@ void secret_thru_queue(The_Round *terms)
     {
         printf("before for loop2\n");
         enum Operator op = remove_q(&(terms->queue));        
-        switch(op)
-        {
-            case AND:
-                printf("operator: AND\n");
-                break;
-            case OR:
-                printf("operator: OR\n");
-                break;
-            case NAND:
-                printf("operator: NAND\n");
-                break;
-            case NOR:
-                printf("operator: NOR\n");
-                break;
-            case XOR:
-                printf("operator: XOR\n");
-                break;
-            case XNOR:
-                printf("operator: XNOR\n");
-                break;
-            case NONE:
-                printf("oops\n");
-                break;
-            default:
-                perror("NONE FOUND");            
-                break;
-        }
+        print_op(op);
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); ++i)
         {
             /*
@@ -111,6 +85,7 @@ void secret_thru_stack(The_Round *terms)
         enum Operator op = pop(&(terms->stack));        
         for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0') && op != NONE; ++i)
         {
+            print_op(op);
             /*
             because a character cannot xor itself the
             array location will equal the said character
@@ -142,30 +117,30 @@ void assign_op(enum Operator *op, const char operate, The_Round *terms)
     switch(operate)
     {
         case '1':
-            op = AND;                            
+            *op = AND;                            
             break;
         case '2':
-            op = OR;                
+            *op = OR;                
             break;
         case '3':
-            op = NAND;                
+            *op = NAND;                
             break;
         case '4':
-            op = NOR;                
+            *op = NOR;                
             break;        
         case '5':
-            op = XOR;                
+            *op = XOR;                
             break;
         case '6':
-            op = XNOR;
+            *op = XNOR;
             break;
         default:               
             perror("none\n");
             break;
         //terms.queue        
     }
-    insert(&(terms->queue), op);
-    push(&(terms->stack), op);    
+    insert(&(terms->queue), *op);
+    push(&(terms->stack), *op);    
 }
 void print_op(const enum Operator op)
 {
