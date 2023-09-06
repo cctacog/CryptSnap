@@ -32,7 +32,7 @@ void empty_s(The_Round *terms_)
     }    
 }
 
-void secret_thru_queue(The_Round *terms)
+void code_thru_queue(The_Round *terms)
 {
     int iK = 0;
     //remove_q(&(terms->queue)); 
@@ -50,8 +50,7 @@ void secret_thru_queue(The_Round *terms)
             array location will equal the said character
             */
             if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
-            {
-                terms->secret[i] = terms->code[i];
+            {                
                 continue;
             }
 
@@ -61,48 +60,48 @@ void secret_thru_queue(The_Round *terms)
             char s;
             s = possibleActions(op, terms->code[i], terms->key[iK]);
 
-            terms->secret[i] = s;
+            terms->code[i] = s;
 
             /*
             if terms->code about to end at the i+1 location
-            then the secret will end at i+1
+            then the code will end at i+1
             */
             iK++;
 
             if(terms->code[i+1] == '\0')
-                terms->secret[i+1] = '\0';
+                terms->code[i+1] = '\0';
             if(terms->key[iK] == '\0')
                 iK = 0;
         }
     }
 }
 
-void secret_thru_stack(The_Round *terms)
+void code_thru_stack(The_Round *terms)
 {
     int iK = 0;
     for(int s = 0; isEmpty_s(&(terms->stack)) == 0; ++s)
     {
         enum Operator op = pop(&(terms->stack));        
-        for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0') && op != NONE; ++i)
+        for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0') && op != NONE; ++i)
         {
             print_op(op);
             /*
             because a character cannot xor itself the
             array location will equal the said character
             */
-            if(terms->secret[i] == terms->key[iK] && (op == XOR || op == XNOR))
+            if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
             {                
                 continue;
             }
 
             char s;
-            s = possibleActions(op, terms->secret[i], terms->key[iK]);
+            s = possibleActions(op, terms->code[i], terms->key[iK]);
 
-            terms->secret[i] = s;
+            terms->code[i] = s;
 
             /*
             if terms->code about to end at the i+1 location
-            then the secret will end at i+1
+            then the code will end at i+1
             */
             iK++;
             

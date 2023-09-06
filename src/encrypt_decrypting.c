@@ -48,8 +48,6 @@ The_Round crypt(const The_Round terms_)
         def_values_q(&terms.queue);
         def_values_s(&terms.stack);
     }
-    
-    
 
     /*
     encrypts each array location of secret (equal to the lengths of the code/key)
@@ -64,24 +62,24 @@ The_Round crypt(const The_Round terms_)
     {
         assign_op(&op, operate[i], &terms);
     }
-    secret_thru_queue(&terms);
+    code_thru_queue(&terms);
     //print final product
-    printf("\nThe secret after encrypting: ");
+    printf("\nThe code after encrypting: ");
 
     for(int z = 0; z < terms.code_len; z++)
     {
-        int num = terms.secret[z];
+        int num = terms.code[z];
         if(num < 0)
             printf("%c", num);
         else printf("%c", alphabet(num));
     }
 
-    secret_thru_stack(&terms);
-    printf("\nThe secret after decrypting: ");
+    code_thru_stack(&terms);
+    printf("\nThe code after decrypting: ");
 
     for(int z = 0; z < terms.code_len; z++)
     {
-        int num = terms.secret[z];
+        int num = terms.code[z];
         if(num < 0)
             printf("%c", num);
         else printf("%c", alphabet(num));
