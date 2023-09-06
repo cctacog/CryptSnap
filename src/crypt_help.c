@@ -113,31 +113,7 @@ void code_thru_stack(The_Round *terms)
 
 void assign_op(enum Operator *op, const char operate, The_Round *terms)
 {
-    switch(operate)
-    {
-        case '1':
-            *op = AND;                            
-            break;
-        case '2':
-            *op = OR;                
-            break;
-        case '3':
-            *op = NAND;                
-            break;
-        case '4':
-            *op = NOR;                
-            break;        
-        case '5':
-            *op = XOR;                
-            break;
-        case '6':
-            *op = XNOR;
-            break;
-        default:               
-            perror("none\n");
-            break;
-        //terms.queue        
-    }
+    *op = (operate - '0' > 0 && operate - '0' < 7) ? operate - '0' : 0;
     insert(&(terms->queue), *op);
     push(&(terms->stack), *op);    
 }

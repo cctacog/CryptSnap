@@ -11,6 +11,6 @@
 
 #define MAX 20
 
-enum Operator {AND, OR, NAND, NOR, XOR, XNOR, NONE} Operator;
+enum Operator {NONE, AND, OR, NAND, NOR, XOR, XNOR} Operator;
 
 #endif
