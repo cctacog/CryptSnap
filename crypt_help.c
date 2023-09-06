@@ -108,34 +108,7 @@ void secret_thru_stack(The_Round *terms)
     int iK = 0;
     for(int s = 0; isEmpty_s(&(terms->stack)) == 0; ++s)
     {
-        enum Operator op = pop(&(terms->stack));
-        switch(op)
-        {
-            case AND:
-                printf("operator: AND\n");
-                break;
-            case OR:
-                printf("operator: OR\n");
-                break;
-            case NAND:
-                printf("operator: NAND\n");
-                break;
-            case NOR:
-                printf("operator: NOR\n");
-                break;
-            case XOR:
-                printf("operator: XOR\n");
-                break;
-            case XNOR:
-                printf("operator: XNOR\n");
-                break;
-            case NONE:
-                printf("oops\n");
-                break;
-            default:
-                perror("NONE FOUND");            
-                break;
-        }
+        enum Operator op = pop(&(terms->stack));        
         for(int i = 0; (i < terms->code_len) && (terms->secret[i] != '\0') && op != NONE; ++i)
         {
             /*
@@ -162,6 +135,67 @@ void secret_thru_stack(The_Round *terms)
                 iK = 0;
         }
     }
+}
+
+void assign_op(enum Operator *op, const char operate, The_Round *terms)
+{
+    switch(operate)
+    {
+        case '1':
+            op = AND;                            
+            break;
+        case '2':
+            op = OR;                
+            break;
+        case '3':
+            op = NAND;                
+            break;
+        case '4':
+            op = NOR;                
+            break;        
+        case '5':
+            op = XOR;                
+            break;
+        case '6':
+            op = XNOR;
+            break;
+        default:               
+            perror("none\n");
+            break;
+        //terms.queue        
+    }
+    insert(&(terms->queue), op);
+    push(&(terms->stack), op);    
+}
+void print_op(const enum Operator op)
+{
+    switch(op)
+        {
+            case AND:
+                printf("operator: AND\n");
+                break;
+            case OR:
+                printf("operator: OR\n");
+                break;
+            case NAND:
+                printf("operator: NAND\n");
+                break;
+            case NOR:
+                printf("operator: NOR\n");
+                break;
+            case XOR:
+                printf("operator: XOR\n");
+                break;
+            case XNOR:
+                printf("operator: XNOR\n");
+                break;
+            case NONE:
+                printf("oops\n");
+                break;
+            default:
+                perror("NONE FOUND");            
+                break;
+        }
 }
 
 char possibleActions(enum Operator i, char c, char k)
