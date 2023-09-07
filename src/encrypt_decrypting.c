@@ -64,7 +64,7 @@ The_Round crypt(const The_Round terms_)
     }
     code_thru_queue(&terms);
     //print final product
-    printf("\nThe code after encrypting: ");
+    printf("\nThe encrypted code: ");
 
     for(int z = 0; z < terms.code_len; z++)
     {
@@ -75,7 +75,7 @@ The_Round crypt(const The_Round terms_)
     }
 
     code_thru_stack(&terms);
-    printf("\nThe code after decrypting: ");
+    printf("\nThe decrypted code: ");
 
     for(int z = 0; z < terms.code_len; z++)
     {

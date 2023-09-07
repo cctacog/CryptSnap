@@ -39,7 +39,7 @@ void code_thru_queue(The_Round *terms)
     for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
     {        
         enum Operator op = remove_q(&(terms->queue));        
-        print_op(op);
+        //print_op(op);
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); ++i)
         {
             /*
@@ -76,7 +76,7 @@ void code_thru_stack(The_Round *terms)
     for(int s = 0; isEmpty_s(&(terms->stack)) == 0; ++s)
     {
         enum Operator op = pop(&(terms->stack));     
-        print_op(op);   
+        //print_op(op);   
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0') && op != NONE; ++i)
         {
             
