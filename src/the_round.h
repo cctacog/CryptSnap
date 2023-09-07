@@ -10,7 +10,7 @@ typedef struct The_Round
     Queue queue;
     char code[100];
     char key[100];
-    char secret[100];
+    //char secret[100];
     int code_len;
     int play_again;
 } The_Round;

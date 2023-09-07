@@ -35,12 +35,9 @@ void empty_s(The_Round *terms_)
 void code_thru_queue(The_Round *terms)
 {
     int iK = 0;
-    //remove_q(&(terms->queue)); 
-
-    printf("before for loop1 queue size: %i\n", size(&(terms->queue)));
+        
     for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
-    {
-        printf("before for loop2\n");
+    {        
         enum Operator op = remove_q(&(terms->queue));        
         print_op(op);
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); ++i)
@@ -53,9 +50,6 @@ void code_thru_queue(The_Round *terms)
             {                
                 continue;
             }
-
-            printf("\ncode char: %c \n", terms->code[i]);
-            printf("key char: %c \n", terms->key[i]);
 
             char s;
             s = possibleActions(op, terms->code[i], terms->key[iK]);
@@ -81,10 +75,11 @@ void code_thru_stack(The_Round *terms)
     int iK = 0;
     for(int s = 0; isEmpty_s(&(terms->stack)) == 0; ++s)
     {
-        enum Operator op = pop(&(terms->stack));        
+        enum Operator op = pop(&(terms->stack));     
+        print_op(op);   
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0') && op != NONE; ++i)
         {
-            print_op(op);
+            
             /*
             because a character cannot xor itself the
             array location will equal the said character
