@@ -55,7 +55,7 @@ void code_thru_queue(The_Round *terms)
             s = possibleActions(op, terms->code[i], terms->key[iK]);
 
             terms->code[i] = s;
-
+            printf("\n%i", terms->code[i]);
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1
@@ -89,11 +89,11 @@ void code_thru_stack(The_Round *terms)
                 continue;
             }
 
-            char s;
+            unsigned char s;
             s = possibleActions(op, terms->code[i], terms->key[iK]);
 
             terms->code[i] = s;
-
+            printf("\n%i", terms->code[i]);
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1
@@ -143,7 +143,7 @@ void print_op(const enum Operator op)
         }
 }
 
-char possibleActions(enum Operator i, char c, char k)
+unsigned char possibleActions(enum Operator i, unsigned char c, unsigned char k)
 {
     int answ = 0;
     switch(i)
@@ -152,13 +152,13 @@ char possibleActions(enum Operator i, char c, char k)
             answ = c & k;
             break;
         case OR:
-            answ = c + k;
+            answ = c | k;
             break;
         case NAND:
             answ = ~(c & k);
             break;
         case NOR:
-            answ = ~(c + k);
+            answ = ~(c | k);
             break;
         case XOR:
             answ = c ^ k;

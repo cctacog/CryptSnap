@@ -8,8 +8,8 @@ typedef struct The_Round
 {
     Stack stack;
     Queue queue;
-    char code[100];
-    char key[100];
+    unsigned char code[100];
+    unsigned char key[100];
     //char secret[100];
     int code_len;
     int play_again;
