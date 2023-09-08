@@ -8,6 +8,7 @@ typedef struct Table
     int length;
     int width;    
     char filler[15];
+    char table[4];
 }Table;
 
 void printer(const Table *table);

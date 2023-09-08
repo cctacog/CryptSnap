@@ -20,15 +20,15 @@ typedef struct The_Round
     char background[BOUND_Y][BOUND_X];    
     Table gate_s[6];    
     Table problem;
-    char words[75];
-    char table[BOUND_Y - 26];    
+    char words[75];       
 } The_Round;
 
 //the_round functions
 void intro(The_Round *user);
-void fill_Tables(The_Round *user);
+void initialize_gateTables(The_Round *user);
+void enter_words(The_Round *user, char *phrase);
 void transfer(const The_Round user_1, The_Round *user_2);
 void empty_q(The_Round *user_);
 void empty_s(The_Round *user_);
-void printer(const The_Round *user);
+void printer_background(const The_Round *user);
 #endif

@@ -1,4 +1,5 @@
 #include "the_round.h"
+#include "crypt_helper.h"
 
 void intro(The_Round *user)
 {
@@ -7,12 +8,31 @@ void intro(The_Round *user)
     
 }
 
+void initialize_gateTables(The_Round *user)
+{
+    int gate_count = 0;
+    char filler[15];
+    while(gate_count < 6)
+    {
+        
+        filler[0] = 'x';
+        filler[1] = 'y';
+        filler[2] = 'z';
+        for(int i = 0; i < 2; ++i)
+        {
+            filler[3+i] = i;
+            for(int j = 0; j < 2; ++j)
+            {
+                filler[4+j] = j;
+                filler[5+j] = possibleActions(gate_count + 1, i, j);
+            }
+        }
+        initialize_table(&user->gate_s[gate_count + 1], &filler, 11, 7);
+    }
+}
+
 void fill(The_Round *user)
 {
-    user->table[0] = ' ';
-    user->table[1] = '_';
-    user->table[2] = '|';
-    user->table[3] = '\n';  
 
     for(int i = 0; i < BOUND_Y; ++i)
     {
@@ -20,22 +40,36 @@ void fill(The_Round *user)
         {
             if(i == 0)
             {
-                user->background[i][j] = user->table[1];
+                user->background[i][j] = '_';
             }
             else if(j == 0 || j == BOUND_X - 2)
             {
-                user->background[i][j] = user->table[2];
+                user->background[i][j] = '|';
             }
             else if(j == BOUND_X - 1)
             {
-                user->background[i][j] = user->table[3];
+                user->background[i][j] = '\n';
             }
             else
             {
-                user->background[i][j] = user->table[0];
+                user->background[i][j] = ' ';
             }
         }
     }      
+}
+
+void enter_words(The_Round *user, char *phrase)
+{
+    for(int i = 2; i < 5 && *phrase != '\0'; ++i)
+    {
+        int j = 3;
+        while(user->background[i][j] + 1 != '|')
+        {
+            user->background[i][j] = *phrase;
+            ++phrase;
+            ++j;
+        }
+    }
 }
 
 void transfer(const The_Round terms_1, The_Round *terms_2)
@@ -66,7 +100,7 @@ void empty_s(The_Round *terms_)
     }    
 }
 
-void printer(const The_Round *user)
+void printer_background(const The_Round *user)
 {
     for(int i = 0; i < BOUND_Y; ++i)
     {
@@ -79,15 +113,33 @@ void printer(const The_Round *user)
 
 void printer(const Table *table)
 {
+    int count = 0;
     for(int i = 0; i < table->length; ++i)
     {
         for(int j = 0; j < table->width; ++j)
         {
-            if(i % 2 == 0 && j % 2 == 0)
+            if(i == 0 || i == table->length - 1)
             {
-                
+                printf("_");
+            }
+            else if(i % 2 == 0 && j % 2 == 0)
+            {
+                printf(" ");
+            }
+            else if(i % 2 == 0)
+            {
+                printf("_");
+            }
+            else if(j % 2 == 0)
+            {
+                printf("|");
+            }
+            else
+            {
+                printf("%c", table->filler[count]);
             }
         }
+        ++count;
     }
 }
 
