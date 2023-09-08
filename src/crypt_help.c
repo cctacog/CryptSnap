@@ -4,34 +4,6 @@ Sophia Garcia
 01-31-2023
 */
 
-void transfer(const The_Round terms_1, The_Round *terms_2)
-{
-    terms_2->code_len = terms_1.code_len;
-    for(int i = 0; i < terms_1.code_len; ++i)
-    {
-        terms_2->code[i] = terms_1.code[i];
-    }
-    for(int i = 0; i < 20 && terms_1.key[i-1] != '\0'; ++i)
-    {
-        terms_2->key[i] = terms_1.key[i];
-    }
-}
-
-void empty_q(The_Round *terms_)
-{
-    for(int i = terms_->queue.item_Count; i > 0; --i)
-    {        
-        remove_q(&(terms_->queue));
-    }
-}
-void empty_s(The_Round *terms_)
-{
-    for(int i = 0; i < MAX && isEmpty_s(&(terms_->stack)) == 1; ++i)
-    {
-        pop(&(terms_->stack));
-    }    
-}
-
 void code_thru_queue(The_Round *terms)
 {
     int iK = 0;
