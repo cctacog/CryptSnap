@@ -116,7 +116,7 @@ void print_op(const enum Operator op)
 }
 
 unsigned char possibleActions(enum Operator i, unsigned char c, unsigned char k)
-{
+{    
     int answ = 0;
     switch(i)
     {
@@ -169,8 +169,16 @@ char alphabet(int b)
     }        
 }
 
-char alphabet_print_listed(char alphabet[])
+char alphabet_print_listed(char alphabet_[])
 {
+    char yn[10];
+    printf("\n\nWould you like to see the C ascii alphabet?: [ex: yes] ");
+    gets(yn);
+
+    if(yn[0] == 'y' || yn[0] == 'Y')
+        alphabet(-1);
+
+    printf("\nHave a nice day!\n");
     const char non_printable[33][5] = {"NULL", "SOH", "STX", "ETX", "EOT", "ENQ", "ACK", 
     "BEL", "BS", "TAB", "LF", "VT", "FF", "SO", "SI", "DLE", "DC1", "DC2", "DC3", "DC4", 
     "NAK", "SYN", "CAN", "EM", "SUB", "ESC", "SUB", "ESC", "FS", "GS", "RS", "US", "SPACE" };
@@ -184,7 +192,7 @@ char alphabet_print_listed(char alphabet[])
         }
         else
         {
-            printf("%c", alphabet[i]);
+            printf("%c", alphabet_[i]);
         }
         if((i+1) % 2 == 0)
             move = '\n';
