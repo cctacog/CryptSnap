@@ -23,34 +23,38 @@ void intro(The_Round *user)
 
 void level_one(The_Round *user)
 {
-    clear_backgrd(user);
-    implement_aTable(user, &(user->problem), 6, 11);
-    implement_aTable(user, &(user->gate_s[0]),9, 5);
-    enter_words(user, "Now let us try and solve for an AND operation with the below bits!");
-    printer_background(user);
-    printf("What do you think the result will be?: ");
-    char answ[10];
-    gets(answ);    
-    for(int i = 0; i < 4; ++i)
-    {
-        user->secret[i] = possibleActions(AND, user->code[i], user->key[i]);
-        switch(answ[i])
+    enum Operator op = AND;
+    while(op != NONE)
+    {   
+        clear_backgrd(user);
+        implement_aTable(user, &(user->problem), 6, 11);
+        implement_aTable(user, &(user->gate_s[0]),9, 5);
+        enter_words(user, "Now let us try and solve for an " + print_op(op) + " operation with the below bits!");
+        printer_background(user);
+        printf("What do you think the result will be?: ");
+        char answ[10];
+        gets(answ);    
+        for(int i = 0; i < 4; ++i)
         {
-            case '1':
-                answ[i] = 1;                
-                break;
-            case '0':
-                answ[i] = 0;
-                break;
-            default:
-                answ[i] = '-';        
+            user->secret[i] = possibleActions(op, user->code[i], user->key[i]);
+            switch(answ[i])
+            {
+                case '1':
+                    answ[i] = 1;                
+                    break;
+                case '0':
+                    answ[i] = 0;
+                    break;
+                default:
+                    answ[i] = '-';        
+            }
+        }        
+        if(answ[0] == user->secret[0] && answ[2] == user->secret[2] && answ[2] == user->secret[2]) 
+        {        
+            printf("Yaay! You got it!");        
         }
-    }        
-    if(answ[0] == user->secret[0] && answ[2] == user->secret[2] && answ[2] == user->secret[2]) 
-    {        
-        printf("Yaay! You got it!");        
+        else printf("Boo, bummer u were wrong");    
     }
-    else printf("Boo, bummer u were wrong\nthe correct asnwer was 100 in binary");    
 }
 
 void initialize_gateTables(The_Round *user)

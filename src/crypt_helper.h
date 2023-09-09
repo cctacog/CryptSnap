@@ -12,7 +12,7 @@ Sophia Garcia
 void code_thru_queue(The_Round *terms);
 void code_thru_stack(The_Round *terms);
 void assign_op(enum Operator *op, const char operate, The_Round *terms);
-void print_op(const enum Operator op);
+char* print_op(const enum Operator op);
 unsigned char possibleActions(enum Operator i, unsigned char c, unsigned char k);
 char alphabet(int b);
 char alphabet_print_listed(char alphabet[]);

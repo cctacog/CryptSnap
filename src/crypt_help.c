@@ -84,27 +84,28 @@ void assign_op(enum Operator *op, const char operate, The_Round *terms)
     insert(&(terms->queue), *op);
     push(&(terms->stack), *op);    
 }
-void print_op(const enum Operator op)
+char* print_op(const enum Operator op)
 {
+    char *result;
     switch(op)
         {
             case AND:
-                printf("operator: AND\n");
+                result = "AND";
                 break;
             case OR:
-                printf("operator: OR\n");
+                result = "OR";
                 break;
             case NAND:
-                printf("operator: NAND\n");
+                result = "NAND";
                 break;
             case NOR:
-                printf("operator: NOR\n");
+                result = "NOR";
                 break;
             case XOR:
-                printf("operator: XOR\n");
+                result = "XOR";
                 break;
             case XNOR:
-                printf("operator: XNOR\n");
+                result = "XNOR";
                 break;
             case NONE:
                 printf("oops\n");
@@ -113,6 +114,7 @@ void print_op(const enum Operator op)
                 perror("NONE FOUND");            
                 break;
         }
+     return result;
 }
 
 unsigned char possibleActions(enum Operator i, unsigned char c, unsigned char k)
