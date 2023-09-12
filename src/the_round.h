@@ -26,6 +26,8 @@ typedef struct The_Round
 //the_round functions
 void intro(The_Round *user);
 void level_one(The_Round *user);
+void level_two(The_Round *user);
+void level_three(The_Round *user);
 void clear_backgrd(The_Round *user);
 void initialize_gateTables(The_Round *user);
 void enter_words(The_Round *user, char *phrase);

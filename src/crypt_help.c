@@ -7,11 +7,13 @@ Sophia Garcia
 void code_thru_queue(The_Round *terms)
 {
     int iK = 0;
-        
+    //printf("pizza in\n");
+    printf("%i", isEmpty_q(&(terms->queue)));
     for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
     {        
         enum Operator op = remove_q(&(terms->queue));        
-        //print_op(op);
+        printf(print_op(op));
+        //printf("pizza dough\n");    
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); ++i)
         {
             /*
@@ -25,15 +27,15 @@ void code_thru_queue(The_Round *terms)
 
             char s;
             s = possibleActions(op, terms->code[i], terms->key[iK]);
-
-            terms->code[i] = s;
-            printf("\n%i", terms->code[i]);
+            //printf("pizza sauce\n");
+            terms->secret[i] = s;
+            printf("\n%i", terms->secret[i]);
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1
             */
             iK++;
-
+            //printf("pizza toppings\n");
             if(terms->code[i+1] == '\0')
                 terms->code[i+1] = '\0';
             if(terms->key[iK] == '\0')
@@ -64,8 +66,8 @@ void code_thru_stack(The_Round *terms)
             unsigned char s;
             s = possibleActions(op, terms->code[i], terms->key[iK]);
 
-            terms->code[i] = s;
-            printf("\n%i", terms->code[i]);
+            terms->secret[i] = s;
+            printf("\n%i", terms->secret[i]);
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1

@@ -31,7 +31,7 @@ void insert(Queue *queue, enum Operator op)
     queue->array[queue->rear-1] = op;
     queue->rear = (queue->rear + 1) % MAX;    
     queue->item_Count = queue->item_Count + 1;
-    //printf("pushed\n");
+    printf("pushed\n");
 }
 
 enum Operator remove_q(Queue *queue)

@@ -29,14 +29,16 @@ void level_one(The_Round *user)
         clear_backgrd(user);
         implement_aTable(user, &(user->problem), 6, 11);
         implement_aTable(user, &(user->gate_s[0]),9, 5);
-        enter_words(user, "Now let us try and solve for an " + print_op(op) + " operation with the below bits!");
+        char into_lvl[75] = "Now let us try and solve for an operation with the below bits!:";
+        enter_words(user, into_lvl);
         printer_background(user);
-        printf("What do you think the result will be?: ");
+        insert(&(user->queue), op);
+        code_thru_queue(user);
+        printf("What do you think the result will be for %s?: ", print_op(op));
         char answ[10];
         gets(answ);    
-        for(int i = 0; i < 4; ++i)
-        {
-            user->secret[i] = possibleActions(op, user->code[i], user->key[i]);
+        for(int i = 0; i < 10; ++i)
+        {            
             switch(answ[i])
             {
                 case '1':
@@ -48,13 +50,26 @@ void level_one(The_Round *user)
                 default:
                     answ[i] = '-';        
             }
-        }        
-        if(answ[0] == user->secret[0] && answ[2] == user->secret[2] && answ[2] == user->secret[2]) 
+        }          
+        if(answ[0] == user->secret[0] && answ[1] == user->secret[1] && answ[2] == user->secret[2]) 
         {        
-            printf("Yaay! You got it!");        
+            enter_words(user, "You got it!");        
         }
-        else printf("Boo, bummer u were wrong");    
+        else enter_words(user, "Boo you failed");   
+        printer_background(user);
+        ++op; 
     }
+}
+
+void level_two(The_Round *user)
+{
+    //user practices trhee problems where the code undergoes two gates
+    //user then see's a three gate problem for encrypting and decrypting    
+}
+
+void level_three(The_Round *user)
+{
+    //user introduced to LFSR's and set to 5 practice problems
 }
 
 void initialize_gateTables(The_Round *user)
@@ -166,7 +181,7 @@ void printer_background(const The_Round *user)
             printf("%c", user->background[i][j]);
         }
     }
-    Sleep(1000);
+    Sleep(2500);
 }
 
 void initialize_table(Table *table, char *filler, int len, int width)
