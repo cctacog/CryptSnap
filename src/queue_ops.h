@@ -15,7 +15,7 @@ void def_values_q(Queue * queue);
 int isFull_q(const Queue *queue);
 int isEmpty_q(const Queue *queue);
 int size(const Queue *queue);
-void insert(Queue *queue, enum Operator op);
+void insert(Queue *queue, const enum Operator op);
 enum Operator remove_q(Queue *queue);
 enum Operator peek_q(const Queue *queue);
 

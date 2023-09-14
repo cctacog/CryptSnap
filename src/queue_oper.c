@@ -1,4 +1,5 @@
 #include "queue_ops.h"
+#include "crypt_helper.h"
 
 void def_values_q(Queue * queue)
 {
@@ -22,25 +23,25 @@ int size(const Queue *queue)
     return queue->item_Count;
 }
 
-void insert(Queue *queue, enum Operator op)
+void insert(Queue *queue, const enum Operator op)
 {
     if(isFull_q(queue))
     {        
         return;
     }
-    queue->array[queue->rear-1] = op;
-    queue->rear = (queue->rear + 1) % MAX;    
+    queue->array[(queue->rear)-1] = op;    
+    queue->rear = ((queue->rear) + 1) % MAX;       
     queue->item_Count = queue->item_Count + 1;
-    printf("pushed\n");
+    print_op(queue->array[queue->front]);
 }
 
 enum Operator remove_q(Queue *queue)
 {
     if(isEmpty_q(queue))
-        return INT_MIN;
-    enum Operator current_front = queue->array[queue->front];
-    queue->front = (queue->front + 1) % MAX;
-    queue->item_Count = queue->item_Count - 1;
+        return INT_MIN;     
+    enum Operator current_front = queue->array[queue->front];    
+    queue->front = (queue->front + 1) % MAX;        
+    queue->item_Count = queue->item_Count - 1; 
     return current_front;
 }
 

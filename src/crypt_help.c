@@ -4,53 +4,51 @@ Sophia Garcia
 01-31-2023
 */
 
-void code_thru_queue(The_Round *terms)
+
+void code_thru_array(The_Round *terms)
 {
-    int iK = 0;
-    //printf("pizza in\n");
-    printf("%i", isEmpty_q(&(terms->queue)));
-    for(int q = 0; isEmpty_q(&(terms->queue)) == 0; ++q)
-    {        
-        enum Operator op = remove_q(&(terms->queue));        
-        printf(print_op(op));
-        //printf("pizza dough\n");    
-        for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0'); ++i)
+    int iK = 0;    
+    for(int q = 0; terms->ops_order[q] != NONE && q < 10; ++q)
+    {                         
+        enum Operator op = terms->ops_order[q]; 
+        print_op(op);                      
+        for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0') && i < 10; ++i)
         {
             /*
             because a character cannot xor itself the
             array location will equal the said character
             */
             if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
-            {                
+            {           
+                terms->secret[i] = terms->code[i];
                 continue;
             }
 
             char s;
-            s = possibleActions(op, terms->code[i], terms->key[iK]);
-            //printf("pizza sauce\n");
+            s = possibleActions(op, terms->code[i], terms->key[iK]);            
             terms->secret[i] = s;
-            printf("\n%i", terms->secret[i]);
+            printf("%i\n", terms->secret[i]);                        
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1
             */
-            iK++;
-            //printf("pizza toppings\n");
+            iK++;            
             if(terms->code[i+1] == '\0')
                 terms->code[i+1] = '\0';
             if(terms->key[iK] == '\0')
                 iK = 0;
-        }
+        }        
     }
+
 }
 
 void code_thru_stack(The_Round *terms)
 {
     int iK = 0;
-    for(int s = 0; isEmpty_s(&(terms->stack)) == 0; ++s)
+    for(int s = 0;!isEmpty_s(&(terms->stack)); ++s)
     {
         enum Operator op = pop(&(terms->stack));     
-        //print_op(op);   
+         
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0') && op != NONE; ++i)
         {
             
@@ -67,7 +65,8 @@ void code_thru_stack(The_Round *terms)
             s = possibleActions(op, terms->code[i], terms->key[iK]);
 
             terms->secret[i] = s;
-            printf("\n%i", terms->secret[i]);
+            printf("%i\n", terms->secret[i]);
+            printf("%s\n", print_op(op));
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1
@@ -82,8 +81,7 @@ void code_thru_stack(The_Round *terms)
 
 void assign_op(enum Operator *op, const char operate, The_Round *terms)
 {
-    *op = (operate - '0' > 0 && operate - '0' < 7) ? operate - '0' : 0;
-    insert(&(terms->queue), *op);
+    *op = (operate - '0' > 0 && operate - '0' < 7) ? operate - '0' : 0;    
     push(&(terms->stack), *op);    
 }
 char* print_op(const enum Operator op)
@@ -110,10 +108,10 @@ char* print_op(const enum Operator op)
                 result = "XNOR";
                 break;
             case NONE:
-                printf("oops\n");
+                result = "NONE";
                 break;
             default:
-                perror("NONE FOUND");            
+                result = "nope";            
                 break;
         }
      return result;
@@ -143,7 +141,7 @@ unsigned char possibleActions(enum Operator i, unsigned char c, unsigned char k)
             answ = ~(c ^ k);
             break;
         case NONE:
-            printf("oops\n");
+            printf("oops");
             break;
         default:
             perror("Error by input");

@@ -6,12 +6,12 @@
 #include "tables.h"
 
 #define BOUND_X 56
-#define BOUND_Y 14
+#define BOUND_Y 20
 
 typedef struct The_Round
 {
-    Stack stack;
-    Queue queue;
+    Stack stack;    
+    enum Operator ops_order[10];
     unsigned char code[10];
     unsigned char key[10];
     unsigned char secret[10];
@@ -32,7 +32,6 @@ void clear_backgrd(The_Round *user);
 void initialize_gateTables(The_Round *user);
 void enter_words(The_Round *user, char *phrase);
 void transfer(const The_Round user_1, The_Round *user_2);
-void empty_q(The_Round *user_);
 void empty_s(The_Round *user_);
 void printer_background(const The_Round *user);
 void implement_aTable(The_Round *user, const Table *table, int row, int column);

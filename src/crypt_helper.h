@@ -9,7 +9,8 @@ Sophia Garcia
 */
 
 //calculator functions
-void code_thru_queue(The_Round *terms);
+//void code_thru_queue(The_Round *terms);
+void code_thru_array(The_Round *terms);
 void code_thru_stack(The_Round *terms);
 void assign_op(enum Operator *op, const char operate, The_Round *terms);
 char* print_op(const enum Operator op);

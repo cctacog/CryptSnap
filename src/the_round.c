@@ -13,27 +13,31 @@ void intro(The_Round *user)
     user->key[0] = 1;
     user->key[1] = 0;
     user->key[2] = 1;
-
+    user->code_len = 3;
     initialize_table(&(user->problem), "110101   ", 7, 7);    
     printer_background(user);      
     char next_up[75] = "Now you need to start from the beginning...LOGIC GATES!";
     enter_words(user, next_up);
     printer_background(user);
+    for(int i = 0; i < 10; ++i)
+    {
+        user->ops_order[i] = NONE;
+    }
 }
 
 void level_one(The_Round *user)
 {
-    enum Operator op = AND;
+    enum Operator op = AND;        
     while(op != NONE)
     {   
         clear_backgrd(user);
         implement_aTable(user, &(user->problem), 6, 11);
-        implement_aTable(user, &(user->gate_s[0]),9, 5);
-        char into_lvl[75] = "Now let us try and solve for an operation with the below bits!:";
-        enter_words(user, into_lvl);
-        printer_background(user);
-        insert(&(user->queue), op);
-        code_thru_queue(user);
+        implement_aTable(user, &(user->gate_s[op]), 6, 2);      
+        char into_lvl[75] = "Now let us try and solve the below bits!:";
+        enter_words(user, into_lvl);  
+        printer_background(user);             
+        user->ops_order[0] = op;
+        code_thru_array(user);        
         printf("What do you think the result will be for %s?: ", print_op(op));
         char answ[10];
         gets(answ);    
@@ -83,13 +87,14 @@ void initialize_gateTables(The_Round *user)
         filler[2] = 'z';
         for(int i = 0; i < 2; ++i)
         {
-            filler[3+i] = i;
+            filler[3+i] = i + 48;
             for(int j = 0; j < 2; ++j)
             {
-                filler[4+j] = j;
-                filler[5+j] = possibleActions(gate_count + 1, i, j);
+                filler[4+j] = j + 48;
+                filler[5+j] = possibleActions(gate_count + 1, i, j) + 48;
             }
         }
+        printf("%s\n", filler);
         initialize_table(&user->gate_s[gate_count + 1], filler, 11, 7);
         ++gate_count;
     }
@@ -157,13 +162,6 @@ void transfer(const The_Round terms_1, The_Round *terms_2)
     }
 }
 
-void empty_q(The_Round *terms_)
-{
-    for(int i = terms_->queue.item_Count; i > 0; --i)
-    {        
-        remove_q(&(terms_->queue));
-    }
-}
 void empty_s(The_Round *terms_)
 {
     for(int i = 0; i < MAX && isEmpty_s(&(terms_->stack)) == 1; ++i)
@@ -200,10 +198,10 @@ void initialize_table(Table *table, char *filler, int len, int width)
 void implement_aTable(The_Round *user, const Table *table, int row, int column)
 {
     int count = 0;
-    if(row < 0 || row >= BOUND_Y || row+(table->length) >= BOUND_Y)
-        return;
-    else if(column < 0 || row >= BOUND_X || column+(table->width) >= BOUND_X)
-        return;
+    // if(row < 0 || row >= BOUND_Y || row+(table->length) >= BOUND_Y)
+    //     return;
+    // else if(column < 0 || row >= BOUND_X || column+(table->width) >= BOUND_X)
+    //     return;
     user->background[row][column] = ' ';
     for(int i = 0; i < table->length; ++i)
     {
