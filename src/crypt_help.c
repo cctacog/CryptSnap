@@ -10,33 +10,31 @@ void code_thru_array(The_Round *terms)
     int iK = 0;    
     for(int q = 0; terms->ops_order[q] != NONE && q < 10; ++q)
     {                         
-        enum Operator op = terms->ops_order[q]; 
-        print_op(op);                      
+        enum Operator op = terms->ops_order[q];                               
         for(int i = 0; (i < terms->code_len) && i < 10; ++i)
         {
             /*
             because a character cannot xor itself the
             array location will equal the said character
             */
-            if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
-            {           
-                terms->secret[i] = terms->code[i];
-                continue;
-            }
+            // if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
+            // {           
+            //     terms->secret[i] = terms->code[i];
+            //     continue;
+            // }
 
-            char s;
-            s = possibleActions(op, terms->code[i], terms->key[iK]);            
-            terms->secret[i] = s;
-            printf("%i\n", terms->secret[i]);                        
+            terms->secret[i] = possibleActions(op, terms->code[i], terms->key[iK]);            
+            printf("code: %i, key: %i, s: %i\n", terms->code[i], terms->key[iK], terms->secret[i]);                        
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1
             */
-            iK++;            
-            if(terms->code[i+1] == '\0')
-                terms->code[i+1] = '\0';
-            if(terms->key[iK] == '\0')
-                iK = 0;
+            ++iK;     
+            //only for when characters involved       
+            // if(terms->code[i+1] == '\0')
+            //     terms->code[i+1] = '\0';
+            // if(terms->key[iK] == '\0')
+            //     iK = 0;
         }        
     }
 
@@ -56,10 +54,11 @@ void code_thru_stack(The_Round *terms)
             because a character cannot xor itself the
             array location will equal the said character
             */
-            if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
-            {                
-                continue;
-            }
+            // if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
+            // {           
+            //     terms->secret[i] = terms->code[i];
+            //     continue;
+            // }
 
             unsigned char s;
             s = possibleActions(op, terms->code[i], terms->key[iK]);
@@ -72,9 +71,11 @@ void code_thru_stack(The_Round *terms)
             then the code will end at i+1
             */
             iK++;
-            
-            if(terms->key[iK] == '\0')
-                iK = 0;
+            //only for when characters involved       
+            // if(terms->code[i+1] == '\0')
+            //     terms->code[i+1] = '\0';
+            // if(terms->key[iK] == '\0')
+            //     iK = 0;
         }
     }
 }
@@ -119,7 +120,7 @@ char* print_op(const enum Operator op)
 
 unsigned char possibleActions(enum Operator i, unsigned char c, unsigned char k)
 {    
-    int answ = 0;
+    unsigned int answ = 0;    
     switch(i)
     {
         case AND:
@@ -148,6 +149,8 @@ unsigned char possibleActions(enum Operator i, unsigned char c, unsigned char k)
             answ = 'f';
             break;
     }
+
+    answ &= 1u;
     return answ;
 }
 

@@ -37,8 +37,7 @@ void level_one(The_Round *user)
         enter_words(user, into_lvl);  
         printer_background(user);             
         user->ops_order[0] = op;
-        code_thru_array(user);  
-        printf("--%s", &(user->secret));      
+        code_thru_array(user);              
         printf("What do you think the result will be for %s?: ", print_op(op));
         char answ[10];
         gets(answ);    
@@ -79,26 +78,14 @@ void level_three(The_Round *user)
 
 void initialize_gateTables(The_Round *user)
 {
-    int gate_count = 0;
-    char filler[15];
-    while(gate_count < 6)
-    {        
-        filler[0] = 'x';
-        filler[1] = 'y';
-        filler[2] = 'z';
-        for(unsigned int i = 0; i < 2; ++i)
-        {
-            filler[3+i] = i + 48;
-            for(unsigned int j = 0; j < 2; ++j)
-            {
-                filler[4+j] = j + 48;
-                filler[5+j] = possibleActions(gate_count + 1, i, j) + 48;
-            }
-        }
-        printf("%s\n", filler);
-        initialize_table(&user->gate_s[gate_count + 1], filler, 11, 7);
-        ++gate_count;
-    }
+    enum Operator gate_count = AND;
+    //HARDCODED :)
+    initialize_table(&user->gate_s[AND], "xyz000010100111", 11, 7);
+    initialize_table(&user->gate_s[OR], "xyz000011101111", 11, 7);
+    initialize_table(&user->gate_s[NAND], "xyz001010101110", 11, 7);
+    initialize_table(&user->gate_s[NOR], "xyz001010100110", 11, 7);
+    initialize_table(&user->gate_s[XOR], "xyz000011101110", 11, 7);
+    initialize_table(&user->gate_s[XNOR], "xyz001010100111", 11, 7);
     /*
     make corrections because the gate inputs and outputs do not align with that of
     the specified gate lol im not really with it rn imma just focus in the levels
