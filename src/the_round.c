@@ -37,7 +37,8 @@ void level_one(The_Round *user)
         enter_words(user, into_lvl);  
         printer_background(user);             
         user->ops_order[0] = op;
-        code_thru_array(user);        
+        code_thru_array(user);  
+        printf("--%s", &(user->secret));      
         printf("What do you think the result will be for %s?: ", print_op(op));
         char answ[10];
         gets(answ);    
@@ -85,10 +86,10 @@ void initialize_gateTables(The_Round *user)
         filler[0] = 'x';
         filler[1] = 'y';
         filler[2] = 'z';
-        for(int i = 0; i < 2; ++i)
+        for(unsigned int i = 0; i < 2; ++i)
         {
             filler[3+i] = i + 48;
-            for(int j = 0; j < 2; ++j)
+            for(unsigned int j = 0; j < 2; ++j)
             {
                 filler[4+j] = j + 48;
                 filler[5+j] = possibleActions(gate_count + 1, i, j) + 48;
@@ -98,6 +99,12 @@ void initialize_gateTables(The_Round *user)
         initialize_table(&user->gate_s[gate_count + 1], filler, 11, 7);
         ++gate_count;
     }
+    /*
+    make corrections because the gate inputs and outputs do not align with that of
+    the specified gate lol im not really with it rn imma just focus in the levels
+    then make it pretty laterrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+    :) 
+    */
 }
 
 void clear_backgrd(The_Round *user)

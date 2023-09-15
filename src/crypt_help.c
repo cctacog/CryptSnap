@@ -12,7 +12,7 @@ void code_thru_array(The_Round *terms)
     {                         
         enum Operator op = terms->ops_order[q]; 
         print_op(op);                      
-        for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0') && i < 10; ++i)
+        for(int i = 0; (i < terms->code_len) && i < 10; ++i)
         {
             /*
             because a character cannot xor itself the
