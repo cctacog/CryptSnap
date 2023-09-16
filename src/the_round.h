@@ -18,7 +18,7 @@ typedef struct The_Round
     int code_len;
     int play_again;
     char background[BOUND_Y][BOUND_X];    
-    Table gate_s[6];    
+    Table gate_s[7];    
     Table problem;       
 } The_Round;
 

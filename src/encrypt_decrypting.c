@@ -10,7 +10,7 @@ The_Round crypt(The_Round *user)
     //prints title of program
     intro(user);
     level_one(user);
-    printf("cookies\n");
+    //printf("cookies\n");
     level_two(user);
     // free(code);
     // free(key);

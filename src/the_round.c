@@ -62,65 +62,131 @@ void level_one(The_Round *user)
         else enter_words(user, "Boo you failed");   
         printer_background(user);
         ++op; 
-    }
-    printf("cookies &\n");
+    }    
 }
 
 void level_two(The_Round *user)
 {
     //user practices thee problems where the code undergoes two gates
     //user then see's a three gate problem for encrypting and decrypting 
-    printf("cooki\n");
-    enum Operator ops[7] = {NAND, NOR, AND, OR, XNOR, XOR, NONE};  
-    char instruct_1[75] = "Here you will be working with two gates";
-    enter_words(user, instruct_1);  
+   // printf("cooki\n");
+   clear_backgrd(user);
+    enum Operator ops[7] = {NAND, NOR, AND, OR, XNOR, XOR, NONE};      
+    enter_words(user, "Here you will be working with two gates");  
     printer_background(user);
-    clear_backgrd(user);
-    char instruct_2[75] = "The code wil run through one gate with the key as before!";
-    enter_words(user, instruct_2);  
+    clear_backgrd(user);    
+    enter_words(user, "The code wil run through one gate with the key as before!");  
     printer_background(user);
-    clear_backgrd(user);
-    char instruct_3[75] = "Then the output will run through a second gate with the same key!";
-    enter_words(user, instruct_3);  
+    clear_backgrd(user);    
+    enter_words(user, "Then the output will run through a second gate with the same key!");  
     printer_background(user);
     int op = 0;
-    while(op < 6)
-    {
-        clear_backgrd(user);
-        implement_aTable(user, &(user->problem), 6, 20);
-        implement_aTable(user, &(user->gate_s[op]), 6, 2);
-        implement_aTable(user, &(user->gate_s[op + 1]), 6, 9);      
-        char into_lvl[75] = "Now let us try and solve the below bits!:";
-        enter_words(user, into_lvl);  
+    while(op < 7 && ops[op] != NONE)
+    {    
+        clear_backgrd(user);    
+        implement_aTable(user, &(user->problem), 6, 20);        
+        implement_aTable(user, &(user->gate_s[ops[op]]), 6, 2);        
+        implement_aTable(user, &(user->gate_s[ops[op + 1]]), 6, 10);             
+        enter_words(user, "Now let us try and solve the below bits!:");  
         printer_background(user); 
-        printf("What do you think the result will be for %s and %s?: ", print_op(ops[op]), print_op(ops[op+1]));            
         user->ops_order[0] = ops[op];
         user->ops_order[1] = ops[op + 1];
-        code_thru_array(user);                      
-        char answ[10];
-        gets(answ);    
+        code_thru_array(user);          
+        printf("What do you think the result will be for %s and %s?: ", print_op(ops[op]), print_op(ops[op+1]));                                
+        char answ1[10];
+        gets(answ1);    
         for(int i = 0; i < 10; ++i)
         {            
-            switch(answ[i])
+            switch(answ1[i])
             {
                 case '1':
-                    answ[i] = 1;                
+                    answ1[i] = 1;                
                     break;
                 case '0':
-                    answ[i] = 0;
+                    answ1[i] = 0;
                     break;
                 default:
-                    answ[i] = '-';        
+                    answ1[i] = '-';        
             }
         }          
-        if(answ[0] == user->secret[0] && answ[1] == user->secret[1] && answ[2] == user->secret[2]) 
+        if(answ1[0] == user->secret[0] && answ1[1] == user->secret[1] && answ1[2] == user->secret[2]) 
         {        
             enter_words(user, "You got it!");        
         }
         else enter_words(user, "Boo you failed");   
         printer_background(user);
         op += 2;
-    } 
+    }   
+    printf("cheetos\n");
+    clear_backgrd(user); 
+    printf("cheetos\n"); 
+    enter_words(user, "This output will run through a three gates with the same key!"); 
+    printf("cheetos\n"); 
+    printer_background(user);
+    printf("cheetos\n");
+    clear_backgrd(user);    
+    printf("cheetos\n");
+    implement_aTable(user, &(user->problem), 6, 26);        
+    implement_aTable(user, &(user->gate_s[AND]), 6, 2);        
+    implement_aTable(user, &(user->gate_s[OR]), 6, 10);
+    implement_aTable(user, &(user->gate_s[NAND]), 6, 18);                 
+    enter_words(user, "Now let us try and solve the below bits!:");  
+    printer_background(user); 
+    user->ops_order[0] = AND;
+    push(&(user->stack), user->ops_order[0]);
+    user->ops_order[1] = OR;
+    push(&(user->stack), user->ops_order[1]);
+    user->ops_order[2] = NAND;
+    push(&(user->stack), user->ops_order[2]);
+    code_thru_array(user);          
+    printf("What do you think the result will be for %s, %s and %s?: ", print_op(AND), print_op(OR), print_op(NAND));                                
+    char answ2[10];
+    gets(answ2);    
+    for(int i = 0; i < 10; ++i)
+    {            
+        switch(answ2[i])
+        {
+            case '1':
+                answ2[i] = 1;                
+                break;
+            case '0':
+                answ2[i] = 0;
+                break;
+            default:
+                answ2[i] = '-';        
+        }
+    }          
+    if(answ2[0] == user->secret[0] && answ2[1] == user->secret[1] && answ2[2] == user->secret[2]) 
+    {        
+        enter_words(user, "You got it!");        
+    }
+    else enter_words(user, "Boo you failed");   
+    printer_background(user);
+    printf("What do you think the result will if you reversed the gate order and encrypted the secret with the key?: "); 
+    code_thru_stack(user);                               
+    char answ3[10];
+    gets(answ3);    
+    for(int i = 0; i < 10; ++i)
+    {            
+        switch(answ3[i])
+        {
+            case '1':
+                answ3[i] = 1;                
+                break;
+            case '0':
+                answ3[i] = 0;
+                break;
+            default:
+                answ3[i] = '-';        
+        }
+    }          
+    if(answ3[0] == user->secret[0] && answ3[1] == user->secret[1] && answ3[2] == user->secret[2]) 
+    {        
+        enter_words(user, "You got it! It's the same as the initial code! Thats a perfect example of decryption!");        
+    }
+    else enter_words(user, "Boo you failed. It's supposed to be the exact same as the code because this is a good example of decryption!");   
+    printer_background(user);
+
 }
 
 void level_three(The_Round *user)
@@ -134,7 +200,7 @@ void initialize_gateTables(The_Round *user)
     //HARDCODED :)
     initialize_table(&user->gate_s[AND], "xyz000010100111", 11, 7);
     initialize_table(&user->gate_s[OR], "xyz000011101111", 11, 7);
-    initialize_table(&user->gate_s[NAND], "xyz001010101110", 11, 7);
+    initialize_table(&user->gate_s[NAND], "xyz001011101110", 11, 7);
     initialize_table(&user->gate_s[NOR], "xyz001010100110", 11, 7);
     initialize_table(&user->gate_s[XOR], "xyz000011101110", 11, 7);
     initialize_table(&user->gate_s[XNOR], "xyz001010100111", 11, 7);

@@ -7,10 +7,15 @@ Sophia Garcia
 
 void code_thru_array(The_Round *terms)
 {
-    int iK = 0;    
+     
+    for(int i = 0; i < 10; ++i)
+    {
+        terms->secret[i] = terms->code[i];
+    }
     for(int q = 0; terms->ops_order[q] != NONE && q < 10; ++q)
     {                         
-        enum Operator op = terms->ops_order[q];                               
+        enum Operator op = terms->ops_order[q]; 
+        int iK = 0;                                 
         for(int i = 0; (i < terms->code_len) && i < 10; ++i)
         {
             /*
@@ -22,9 +27,9 @@ void code_thru_array(The_Round *terms)
             //     terms->secret[i] = terms->code[i];
             //     continue;
             // }
-
-            terms->secret[i] = possibleActions(op, terms->code[i], terms->key[iK]);            
-            printf("code: %i, key: %i, s: %i\n", terms->code[i], terms->key[iK], terms->secret[i]);                        
+            printf("code: %i, key: %i", terms->secret[i], terms->key[iK]);                        
+            terms->secret[i] = possibleActions(op, terms->secret[i], terms->key[iK]);            
+            printf(", s: %i\n", terms->secret[i]);                        
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1
@@ -41,12 +46,11 @@ void code_thru_array(The_Round *terms)
 }
 
 void code_thru_stack(The_Round *terms)
-{
-    int iK = 0;
+{   
     for(int s = 0;!isEmpty_s(&(terms->stack)); ++s)
     {
         enum Operator op = pop(&(terms->stack));     
-         
+        int iK = 0;
         for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0') && op != NONE; ++i)
         {
             
@@ -58,14 +62,9 @@ void code_thru_stack(The_Round *terms)
             // {           
             //     terms->secret[i] = terms->code[i];
             //     continue;
-            // }
+            // }            
 
-            unsigned char s;
-            s = possibleActions(op, terms->code[i], terms->key[iK]);
-
-            terms->secret[i] = s;
-            printf("%i\n", terms->secret[i]);
-            printf("%s\n", print_op(op));
+            terms->secret[i] = possibleActions(op, terms->secret[i], terms->key[iK]);            
             /*
             if terms->code about to end at the i+1 location
             then the code will end at i+1
