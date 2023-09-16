@@ -28,7 +28,7 @@ void intro(The_Round *user)
 void level_one(The_Round *user)
 {
     enum Operator op = AND;        
-    while(op != NONE)
+    while(op <= XNOR)
     {   
         clear_backgrd(user);
         implement_aTable(user, &(user->problem), 6, 11);
@@ -63,12 +63,64 @@ void level_one(The_Round *user)
         printer_background(user);
         ++op; 
     }
+    printf("cookies &\n");
 }
 
 void level_two(The_Round *user)
 {
-    //user practices trhee problems where the code undergoes two gates
-    //user then see's a three gate problem for encrypting and decrypting    
+    //user practices thee problems where the code undergoes two gates
+    //user then see's a three gate problem for encrypting and decrypting 
+    printf("cooki\n");
+    enum Operator ops[7] = {NAND, NOR, AND, OR, XNOR, XOR, NONE};  
+    char instruct_1[75] = "Here you will be working with two gates";
+    enter_words(user, instruct_1);  
+    printer_background(user);
+    clear_backgrd(user);
+    char instruct_2[75] = "The code wil run through one gate with the key as before!";
+    enter_words(user, instruct_2);  
+    printer_background(user);
+    clear_backgrd(user);
+    char instruct_3[75] = "Then the output will run through a second gate with the same key!";
+    enter_words(user, instruct_3);  
+    printer_background(user);
+    int op = 0;
+    while(op < 6)
+    {
+        clear_backgrd(user);
+        implement_aTable(user, &(user->problem), 6, 20);
+        implement_aTable(user, &(user->gate_s[op]), 6, 2);
+        implement_aTable(user, &(user->gate_s[op + 1]), 6, 9);      
+        char into_lvl[75] = "Now let us try and solve the below bits!:";
+        enter_words(user, into_lvl);  
+        printer_background(user); 
+        printf("What do you think the result will be for %s and %s?: ", print_op(ops[op]), print_op(ops[op+1]));            
+        user->ops_order[0] = ops[op];
+        user->ops_order[1] = ops[op + 1];
+        code_thru_array(user);                      
+        char answ[10];
+        gets(answ);    
+        for(int i = 0; i < 10; ++i)
+        {            
+            switch(answ[i])
+            {
+                case '1':
+                    answ[i] = 1;                
+                    break;
+                case '0':
+                    answ[i] = 0;
+                    break;
+                default:
+                    answ[i] = '-';        
+            }
+        }          
+        if(answ[0] == user->secret[0] && answ[1] == user->secret[1] && answ[2] == user->secret[2]) 
+        {        
+            enter_words(user, "You got it!");        
+        }
+        else enter_words(user, "Boo you failed");   
+        printer_background(user);
+        op += 2;
+    } 
 }
 
 void level_three(The_Round *user)

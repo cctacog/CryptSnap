@@ -19,8 +19,7 @@ typedef struct The_Round
     int play_again;
     char background[BOUND_Y][BOUND_X];    
     Table gate_s[6];    
-    Table problem;
-    char words[75];       
+    Table problem;       
 } The_Round;
 
 //the_round functions
