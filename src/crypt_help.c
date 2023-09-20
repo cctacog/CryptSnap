@@ -12,6 +12,7 @@ void code_thru_array(The_Round *terms)
     {
         terms->secret[i] = terms->code[i];
     }
+    
     for(int q = 0; terms->ops_order[q] != NONE && q < 10; ++q)
     {                         
         enum Operator op = terms->ops_order[q]; 

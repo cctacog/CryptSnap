@@ -4,6 +4,7 @@
 void intro(The_Round *user)
 {
     clear_backgrd(user);
+    def_values_s(&(user->stack));
     initialize_gateTables(user);    
     char intro[75] = "Welcome to your introduction to Logic gates and LFSR's!";    
     enter_words(user, intro);      
@@ -117,28 +118,28 @@ void level_two(The_Round *user)
         printer_background(user);
         op += 2;
     }   
-    printf("cheetos\n");
     clear_backgrd(user); 
-    printf("cheetos\n"); 
+    
     enter_words(user, "This output will run through a three gates with the same key!"); 
-    printf("cheetos\n"); 
+    
     printer_background(user);
-    printf("cheetos\n");
+    
     clear_backgrd(user);    
-    printf("cheetos\n");
+    
     implement_aTable(user, &(user->problem), 6, 26);        
     implement_aTable(user, &(user->gate_s[AND]), 6, 2);        
     implement_aTable(user, &(user->gate_s[OR]), 6, 10);
     implement_aTable(user, &(user->gate_s[NAND]), 6, 18);                 
     enter_words(user, "Now let us try and solve the below bits!:");  
     printer_background(user); 
+    
     user->ops_order[0] = AND;
-    push(&(user->stack), user->ops_order[0]);
+    push(&(user->stack), AND);
     user->ops_order[1] = OR;
-    push(&(user->stack), user->ops_order[1]);
+    push(&(user->stack), OR);
     user->ops_order[2] = NAND;
-    push(&(user->stack), user->ops_order[2]);
-    code_thru_array(user);          
+    push(&(user->stack), NAND);      
+    code_thru_array(user);        
     printf("What do you think the result will be for %s, %s and %s?: ", print_op(AND), print_op(OR), print_op(NAND));                                
     char answ2[10];
     gets(answ2);    
@@ -192,6 +193,7 @@ void level_two(The_Round *user)
 void level_three(The_Round *user)
 {
     //user introduced to LFSR's and set to 5 practice problems
+    
 }
 
 void initialize_gateTables(The_Round *user)
@@ -291,7 +293,7 @@ void printer_background(const The_Round *user)
             printf("%c", user->background[i][j]);
         }
     }
-    Sleep(2500);
+    //Sleep(2500);
 }
 
 void initialize_table(Table *table, char *filler, int len, int width)
