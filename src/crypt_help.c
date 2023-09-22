@@ -80,11 +80,7 @@ void code_thru_stack(The_Round *terms)
     }
 }
 
-void assign_op(enum Operator *op, const char operate, The_Round *terms)
-{
-    *op = (operate - '0' > 0 && operate - '0' < 7) ? operate - '0' : 0;    
-    push(&(terms->stack), *op);    
-}
+
 char* print_op(const enum Operator op)
 {
     char *result;
