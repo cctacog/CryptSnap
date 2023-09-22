@@ -5,81 +5,26 @@ Sophia Garcia
 */
 
 
-void code_thru_array(The_Round *terms)
+void code_thru_queue(The_Round *terms)
 {
-     
-    for(int i = 0; i < 10; ++i)
-    {
-        terms->secret[i] = terms->code[i];
-    }
-    
-    for(int q = 0; terms->ops_order[q] != NONE && q < 10; ++q)
+    for(int q = 0; !isEmpty_q(&(terms->queue)) && q < 10; ++q)
     {                         
-        enum Operator op = terms->ops_order[q]; 
-        int iK = 0;                                 
-        for(int i = 0; (i < terms->code_len) && i < 10; ++i)
-        {
-            /*
-            because a character cannot xor itself the
-            array location will equal the said character
-            */
-            // if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
-            // {           
-            //     terms->secret[i] = terms->code[i];
-            //     continue;
-            // }
-            printf("code: %i, key: %i", terms->secret[i], terms->key[iK]);                        
-            terms->secret[i] = possibleActions(op, terms->secret[i], terms->key[iK]);            
-            printf(", s: %i\n", terms->secret[i]);                        
-            /*
-            if terms->code about to end at the i+1 location
-            then the code will end at i+1
-            */
-            ++iK;     
-            //only for when characters involved       
-            // if(terms->code[i+1] == '\0')
-            //     terms->code[i+1] = '\0';
-            // if(terms->key[iK] == '\0')
-            //     iK = 0;
-        }        
+        enum Operator op = remove_q(&(terms->queue)); 
+        if(q == 0)
+            terms->secret_hex = possibleActions(op, terms->code_hex, terms->key_hex);
+        else 
+            terms->secret_hex = possibleActions(op, terms->secret_hex, terms->key_hex);
     }
-
 }
 
 void code_thru_stack(The_Round *terms)
 {   
-    for(int s = 0;!isEmpty_s(&(terms->stack)); ++s)
+    for(int s = 0; !isEmpty_s(&(terms->stack)); ++s)
     {
         enum Operator op = pop(&(terms->stack));     
-        int iK = 0;
-        for(int i = 0; (i < terms->code_len) && (terms->code[i] != '\0') && op != NONE; ++i)
-        {
-            
-            /*
-            because a character cannot xor itself the
-            array location will equal the said character
-            */
-            // if(terms->code[i] == terms->key[iK] && (op == XOR || op == XNOR))
-            // {           
-            //     terms->secret[i] = terms->code[i];
-            //     continue;
-            // }            
-
-            terms->secret[i] = possibleActions(op, terms->secret[i], terms->key[iK]);            
-            /*
-            if terms->code about to end at the i+1 location
-            then the code will end at i+1
-            */
-            iK++;
-            //only for when characters involved       
-            // if(terms->code[i+1] == '\0')
-            //     terms->code[i+1] = '\0';
-            // if(terms->key[iK] == '\0')
-            //     iK = 0;
-        }
+        terms->secret_hex = possibleActions(op, terms->secret_hex, terms->key_hex);
     }
 }
-
 
 char* print_op(const enum Operator op)
 {
@@ -114,28 +59,38 @@ char* print_op(const enum Operator op)
      return result;
 }
 
-unsigned char possibleActions(enum Operator i, unsigned char c, unsigned char k)
+void str_to_array(char *arr1, uint16_t hex1)
+{
+    
+}
+
+void str_trandsform(char *arr1, char *arr2)
+{
+
+}
+
+uint16_t possibleActions(enum Operator i, uint16_t h1, uint16_t h2)
 {    
     unsigned int answ = 0;    
     switch(i)
     {
         case AND:
-            answ = c & k;
+            answ = h1 & h2;
             break;
         case OR:
-            answ = c | k;
+            answ = h1 | h2;
             break;
         case NAND:
-            answ = ~(c & k);
+            answ = ~(h1 & h2);
             break;
         case NOR:
-            answ = ~(c | k);
+            answ = ~(h1 | h2);
             break;
         case XOR:
-            answ = c ^ k;
+            answ = h1 ^ h2;
             break;
         case XNOR:
-            answ = ~(c ^ k);
+            answ = ~(h1 ^ h2);
             break;
         case NONE:
             printf("oops");

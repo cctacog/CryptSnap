@@ -5,13 +5,19 @@ Sophia Garcia
 #include "encrypt_decrypt.h"
 int main(int argc, char* argv[])
 {    
-    The_Round game;
-    game.code[0] = '\0';        
-    do
-    {
-        game = crypt(&game);
-    }
-    while(game.play_again == 1);
+
+    The_Round game;    
+    /*
+    8 = 1000
+    A = 10 = 1010
+    1 XOR 1 = 0
+    */   
+    // game.code[0] = '\0';        
+    // do
+    // {
+    //     game = crypt(&game);
+    // }
+    // while(game.play_again == 1);
     
     
     return 0;

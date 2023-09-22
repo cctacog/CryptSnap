@@ -10,12 +10,8 @@ The_Round crypt(The_Round *user)
     //prints title of program
     intro(user);
     level_one(user);
-    //printf("cookies\n");
     level_two(user);
-    level_three(user);
-    // free(code);
-    // free(key);
-    // free(secret); only needed when using malloc 
+    level_three(user);    
 
     return *user;
 }

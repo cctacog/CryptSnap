@@ -10,8 +10,11 @@
 
 typedef struct The_Round
 {
-    Stack stack;    
-    enum Operator ops_order[10];
+    Stack stack;  
+    Queue queue;      
+    uint16_t code_hex;
+    uint16_t key_hex;
+    uint16_t secret_hex;
     unsigned char code[10];
     unsigned char key[10];
     unsigned char secret[10];
