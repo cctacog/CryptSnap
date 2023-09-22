@@ -193,7 +193,25 @@ void level_two(The_Round *user)
 void level_three(The_Round *user)
 {
     //user introduced to LFSR's and set to 5 practice problems
-    
+    clear_backgrd(user);
+    enter_words(user, "Have you heard of the Fibonacci Sequence?");
+    printer_background(user);
+    clear_backgrd(user);
+    enter_words(user, "Well what if I told you there was the Fibonacci Encryption?");
+    printer_background(user);
+    clear_backgrd(user);
+    enter_words(user, "This encryption deals with Linear Feedback Shift Registar encryption! Or as some might say LFSR encryption");
+    printer_background(user);
+    clear_backgrd(user);
+    enter_words(user, "Here LFSR encryption will be dealing with the XOR and XNOR gates we practiced earlier!");
+    printer_background(user);
+    clear_backgrd(user);
+    enter_words(user, "This will also include stacking one gate over another based on a previous gate input!");
+    printer_background(user); 
+    clear_backgrd(user);
+    implement_aTable(user, &(user->gate_s[XOR]), 2, 7);   
+    enter_words(user, "For our 3 bit set example, we will be XORing our second bit with out third bit");
+    enter_words(user, "After this we will be ");
 }
 
 void initialize_gateTables(The_Round *user)
@@ -293,7 +311,7 @@ void printer_background(const The_Round *user)
             printf("%c", user->background[i][j]);
         }
     }
-    //Sleep(2500);
+    Sleep(1500);
 }
 
 void initialize_table(Table *table, char *filler, int len, int width)
