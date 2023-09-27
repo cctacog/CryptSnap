@@ -38,6 +38,7 @@
     "files.associations": {
       "encrypt_decrypt.h": "c",
       "queue_ops.h": "c",
-      "string.h": "c"
+      "string.h": "c",
+      "crypt_helper.h": "c"
     }
   }

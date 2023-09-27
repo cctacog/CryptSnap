@@ -12,12 +12,12 @@ int main(int argc, char* argv[])
     A = 10 = 1010
     1 XOR 1 = 0
     */   
-    // game.code[0] = '\0';        
-    // do
-    // {
-    //     game = crypt(&game);
-    // }
-    // while(game.play_again == 1);
+     game.code[0] = '\0';        
+     do
+     {
+         game = crypt(&game);
+     }
+     while(game.play_again == 1);
     
     
     return 0;

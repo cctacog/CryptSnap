@@ -8,9 +8,10 @@ Sophia Garcia
 void code_thru_queue(The_Round *terms)
 {
     for(int q = 0; !isEmpty_q(&(terms->queue)) && q < 10; ++q)
-    {                         
+    {            
+        printf("queue go!\n");             
         enum Operator op = remove_q(&(terms->queue)); 
-        if(q == 0)
+        if(!q)
             terms->secret_hex = possibleActions(op, terms->code_hex, terms->key_hex);
         else 
             terms->secret_hex = possibleActions(op, terms->secret_hex, terms->key_hex);
@@ -64,14 +65,14 @@ void str_to_array(char *arr1, uint16_t hex1)
     
 }
 
-void str_trandsform(char *arr1, char *arr2)
+void str_transform(char *arr1, char *arr2)
 {
 
 }
 
 uint16_t possibleActions(enum Operator i, uint16_t h1, uint16_t h2)
 {    
-    unsigned int answ = 0;    
+    uint16_t answ = 0;    
     switch(i)
     {
         case AND:
@@ -93,15 +94,16 @@ uint16_t possibleActions(enum Operator i, uint16_t h1, uint16_t h2)
             answ = ~(h1 ^ h2);
             break;
         case NONE:
-            printf("oops");
+            printf("oops\n");
             break;
         default:
-            perror("Error by input");
+            perror("Error by input\n");
             answ = 'f';
             break;
     }
 
     answ &= 1u;
+    printf("%x\n", answ);
     return answ;
 }
 
