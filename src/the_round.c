@@ -14,23 +14,22 @@ void intro(The_Round *user)
     user->code_len = 4;
     initialize_table(&(user->problem), "10001010    ", 7, 9);           
     char next_up[75] = "Now you need to start from the beginning...LOGIC GATES!";
-    enter_words(user, next_up);    
-    printf("code: %x\n", (user->code_hex));    
+    enter_words(user, next_up);            
 }
 
 void level_one(The_Round *user)
 {
     enum Operator op = AND;        
     while(op <= XNOR)
-    {           
-        implement_aTable(user, &(user->problem), 6, 11);
-        implement_aTable(user, &(user->gate_s[op]), 6, 2);      
-        char into_lvl[75] = "Now let us try and solve the below bits!:";
+    {                         
+        char into_lvl[75] = "Now let us try and solve the below bits!:";        
         enter_words(user, into_lvl);          
+        implement_aTable(user, &(user->problem), 6, 11);
+        implement_aTable(user, &(user->gate_s[op]), 6, 2);
         insert(&(user->queue), op);
         code_thru_queue(user);                                 
         printf("What do you think the result will be for %s?: ", print_op(op));
-        char answ[10];
+        unsigned char answ[10];
         gets(answ);    
         for(int i = 0; i < 10; ++i)
         {                       
@@ -47,16 +46,18 @@ void level_one(The_Round *user)
             }
         }          
         char *str_answ = "Yay you got it!";  
-        int two_ = 8;  
-        printf("%x\n", (user->secret_hex));
+        int cnt = 0;          
         for(int i = 3; i >= 0; --i)
         {            
-            if(answ[i] != ((user->secret_hex >> i) & 1u));
+            unsigned int s = (user->secret_hex >> i);
+            printf("s:%i\n", s);
+            printf("u:%i\n", answ[cnt]);
+            if(answ[cnt] != s);
             {
                 str_answ = "Boo you failed";
                 i = -1;
             }     
-            two_/= 2;                   
+            ++cnt;
         
         }                   
         enter_words(user, str_answ);        
@@ -80,8 +81,7 @@ void level_two(The_Round *user)
         enter_words(user, "Now let us try and solve the below bits!:");
         implement_aTable(user, &(user->problem), 6, 20);        
         implement_aTable(user, &(user->gate_s[ops[op]]), 6, 2);        
-        implement_aTable(user, &(user->gate_s[ops[op + 1]]), 6, 10);   
-        printer_background(user);                            
+        implement_aTable(user, &(user->gate_s[ops[op + 1]]), 6, 10);                                      
         insert(&(user->queue), ops[op]);
         insert(&(user->queue), ops[op + 1]);
         code_thru_queue(user);          
@@ -116,8 +116,7 @@ void level_two(The_Round *user)
         op += 2;
     }   
     clear_backgrd(user); 
-    enter_words(user, "This output will run through a three gates with the same key!"); 
-    
+    enter_words(user, "This output will run through a three gates with the same key!");     
     enter_words(user, "Now let us try and solve the below bits!:");  
     implement_aTable(user, &(user->problem), 6, 26);        
     implement_aTable(user, &(user->gate_s[AND]), 6, 2);        
@@ -208,6 +207,7 @@ void level_three(The_Round *user)
     enter_words(user, "What do you think this will be?");
     implement_aTable(user, &(user->gate_s[XOR]), 2, 7);
     implement_aTable(user, &(user->problem), 6, 26); 
+    initialize_table(&(user->problem), "1010    ", 5, 9);  
     
 }
 
@@ -373,4 +373,5 @@ void implement_aTable(The_Round *user, const Table *table, int row, int column)
         ++row;
         
     }
+    printer_background(user);
 }
