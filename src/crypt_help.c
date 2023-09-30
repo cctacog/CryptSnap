@@ -16,6 +16,10 @@ void code_thru_queue(The_Round *terms)
         else 
             terms->secret_hex = possibleActions(op, terms->secret_hex, terms->key_hex);
     }
+    for(int i = 3; i >= 0; --i)
+    {
+        printf("secret: %i\n", (terms->secret_hex >> i) & 1u);
+    }
 }
 
 void code_thru_stack(The_Round *terms)
@@ -60,15 +64,6 @@ char* print_op(const enum Operator op)
      return result;
 }
 
-void str_to_array(char *arr1, uint16_t hex1)
-{
-    
-}
-
-void str_transform(char *arr1, char *arr2)
-{
-
-}
 
 uint16_t possibleActions(enum Operator i, uint16_t h1, uint16_t h2)
 {    
@@ -102,7 +97,7 @@ uint16_t possibleActions(enum Operator i, uint16_t h1, uint16_t h2)
             break;
     }
 
-    answ &= 1u;
+    //answ &= 1u;
     printf("%x\n", answ);
     return answ;
 }
