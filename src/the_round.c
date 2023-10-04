@@ -3,6 +3,7 @@
 
 void intro(The_Round *user)
 {
+    //initializes the code, key, queue, and stack
     clear_backgrd(user);
     def_values_s(&(user->stack));
     def_values_q(&(user->queue));
@@ -12,6 +13,7 @@ void intro(The_Round *user)
     user->code_hex = 0x08u;
     user->key_hex = 0x0Au; 
     user->code_len = 4;
+    //has the code and key with space for answer in a table
     initialize_table(&(user->problem), "10001010    ", 7, 9);           
     char next_up[75] = "Now you need to start from the beginning...LOGIC GATES!";
     enter_words(user, next_up);            
@@ -19,6 +21,8 @@ void intro(The_Round *user)
 
 void level_one(The_Round *user)
 {
+    //go from AND to XNOR and each round ask user for that the result should be
+    //calcualted v user input at end
     enum Operator op = AND;        
     while(op <= XNOR)
     {                         
@@ -26,11 +30,13 @@ void level_one(The_Round *user)
         enter_words(user, into_lvl);          
         implement_aTable(user, &(user->problem), 6, 11);
         implement_aTable(user, &(user->gate_s[op]), 6, 2);
+        printer_background(user);
         insert(&(user->queue), op);
         code_thru_queue(user);                                 
         printf("What do you think the result will be for %s?: ", print_op(op));
         unsigned char answ[10];
-        gets(answ);    
+        gets(answ);   
+        //reorganize array to ints of char 
         for(int i = 0; i < 10; ++i)
         {                       
             switch(answ[i])
@@ -44,15 +50,15 @@ void level_one(The_Round *user)
                 default:
                     answ[i] = '-';        
             }
-        }          
+        }        
+        //checks if user answ == to calculated  
         char *str_answ = "Yay you got it!";  
         int cnt = 0;          
         for(int i = 3; i >= 0; --i)
         {            
-            unsigned int s = (user->secret_hex >> i);
-            printf("s:%i\n", s);
-            printf("u:%i\n", answ[cnt]);
-            if(answ[cnt] != s);
+            unsigned int s = (user->secret_hex >> i) & 1u;
+            unsigned int a = answ[cnt];                       
+            if(a != s)
             {
                 str_answ = "Boo you failed";
                 i = -1;
@@ -68,9 +74,7 @@ void level_one(The_Round *user)
 
 void level_two(The_Round *user)
 {
-    //user practices thee problems where the code undergoes two gates
-    //user then see's a three gate problem for encrypting and decrypting 
-   // printf("cooki\n");    
+    //user practices thee problems where the code undergoes two gates 
     enum Operator ops[7] = {NAND, NOR, AND, OR, XNOR, XOR, NONE};      
     enter_words(user, "Here you will be working with two gates");   
     enter_words(user, "The code wil run through one gate with the key as before!");         
@@ -81,13 +85,15 @@ void level_two(The_Round *user)
         enter_words(user, "Now let us try and solve the below bits!:");
         implement_aTable(user, &(user->problem), 6, 20);        
         implement_aTable(user, &(user->gate_s[ops[op]]), 6, 2);        
-        implement_aTable(user, &(user->gate_s[ops[op + 1]]), 6, 10);                                      
+        implement_aTable(user, &(user->gate_s[ops[op + 1]]), 6, 10);   
+        printer_background(user);                                   
         insert(&(user->queue), ops[op]);
         insert(&(user->queue), ops[op + 1]);
         code_thru_queue(user);          
         printf("What do you think the result will be for %s and %s?: ", print_op(ops[op]), print_op(ops[op+1]));                                
         char answ1[10];
-        gets(answ1);    
+        gets(answ1);   
+        //reorganize array to ints of char 
         for(int i = 0; i < 10; ++i)
         {            
             switch(answ1[i])
@@ -101,97 +107,24 @@ void level_two(The_Round *user)
                 default:
                     answ1[i] = '-';        
             }
-        }          
-        char *str_answ1 = "Yay you got it!";        
+        }    
+        //checks if user answ == to calculated      
+        char *str_answ1 = "Yay you got it!";   
+        int cnt = 0;     
         for(int i = 3; i >= 0; --i)
         {
-            if(answ1[i] != ((user->secret_hex >> i) & 1u))
+            if(answ1[cnt] != ((user->secret_hex >> i) & 1u))
             {
                 str_answ1 = "Boo you failed";
-                i = 4;
+                i = -1;
             }
+            ++cnt;
         
         }           
         enter_words(user, str_answ1);          
         op += 2;
     }   
-    clear_backgrd(user); 
-    enter_words(user, "This output will run through a three gates with the same key!");     
-    enter_words(user, "Now let us try and solve the below bits!:");  
-    implement_aTable(user, &(user->problem), 6, 26);        
-    implement_aTable(user, &(user->gate_s[AND]), 6, 2);        
-    implement_aTable(user, &(user->gate_s[OR]), 6, 10);
-    implement_aTable(user, &(user->gate_s[NAND]), 6, 18);                 
-    printer_background(user);
-    insert(&(user->queue), AND);
-    push(&(user->stack), AND);
-    insert(&(user->queue), OR);
-    push(&(user->stack), OR);
-    insert(&(user->queue), NAND);
-    push(&(user->stack), NAND);      
-    code_thru_queue(user);        
-    printf("What do you think the result will be for %s, %s and %s?: ", print_op(AND), print_op(OR), print_op(NAND));                                
-    char answ2[10];
-    gets(answ2);    
-    for(int i = 0; i < 10; ++i)
-    {            
-        switch(answ2[i])
-        {
-            case '1':
-                answ2[i] = 1;                
-                break;
-            case '0':
-                answ2[i] = 0;
-                break;
-            default:
-                answ2[i] = '-';        
-        }
-    }          
-    char *str_answ2 = "Yay you got it!";        
-    for(int i = 3; i >= 0; --i)
-    {
-        if(answ2[i] != ((user->secret_hex >> i) & 1u))
-        {
-            str_answ2 = "Boo you failed";
-            i = 4;
-        }
     
-    }       
-    enter_words(user, str_answ2);   
-    implement_aTable(user, &(user->problem), 6, 26);        
-    implement_aTable(user, &(user->gate_s[AND]), 6, 2);        
-    implement_aTable(user, &(user->gate_s[OR]), 6, 10);
-    implement_aTable(user, &(user->gate_s[NAND]), 6, 18);   
-    printer_background(user);  
-    printf("What do you think the result will if you reversed the gate order and encrypted the secret with the key?: "); 
-    code_thru_stack(user);                               
-    char answ3[10];
-    gets(answ3);    
-    for(int i = 0; i < 10; ++i)
-    {            
-        switch(answ3[i])
-        {
-            case '1':
-                answ3[i] = 1;                
-                break;
-            case '0':
-                answ3[i] = 0;
-                break;
-            default:
-                answ3[i] = '-';        
-        }
-    }          
-    char *str_answ3= "Yay you got it!";        
-    for(int i = 3; i >= 0; --i)
-    {
-        if(answ2[i] != ((user->secret_hex >> i) & 1u))
-        {
-            str_answ3 = "Boo you failed";
-            i = 4;
-        }
-    
-    }       
-    enter_words(user, str_answ3);       
 }
 
 void level_three(The_Round *user)
@@ -204,10 +137,49 @@ void level_three(The_Round *user)
     enter_words(user, "This will also include stacking one gate over another based on a previous gate input!");        
     enter_words(user, "For our 4 bit set example, we will be XORing our first bit with our third bit");
     enter_words(user, "And the then the fourth with our result!");
-    enter_words(user, "What do you think this will be?");
-    implement_aTable(user, &(user->gate_s[XOR]), 2, 7);
+    enter_words(user, "What do you think this will be?: ");
+    //intro done
+    implement_aTable(user, &(user->gate_s[XOR]), 2, 7);    
+    initialize_table(&(user->problem), "1010    ", 5, 9); 
     implement_aTable(user, &(user->problem), 6, 26); 
-    initialize_table(&(user->problem), "1010    ", 5, 9);  
+    //tables set for problem and xor table
+    printer_background(user);
+    user->code_hex = 0x0Au;
+    uint16_t bit = possibleActions(XOR, (user->code_hex >> 0), (user->code_hex >> 2)) & 1u;
+    //bit at loci 0 xor with bit at loci 2
+    user->secret_hex = possibleActions(OR, (user->code_hex << 3), bit);
+    printf("Your result [ex: 0000]: ");
+    char answ[10];
+    gets(answ);
+    //reorganize array to ints of char
+    for(int i = 0; i < 10; ++i)
+    {            
+        switch(answ[i])
+        {
+            case '1':
+                answ[i] = 1;                
+                break;
+            case '0':
+                answ[i] = 0;
+                break;
+            default:
+                answ[i] = '-';        
+        }
+    }     
+    //checks if user answ == to calculated
+    char *str_answ1 = "Yay you got it!";   
+    int cnt = 0;         
+        for(int i = 3; i >= 0; --i)
+        {
+            if(answ[cnt] != ((user->secret_hex >> i) & 1u))
+            {
+                str_answ1 = "Boo you failed";
+                i = -1;
+            }
+            ++cnt;
+        
+        }           
+        enter_words(user, str_answ1);  
     
 }
 
@@ -373,5 +345,5 @@ void implement_aTable(The_Round *user, const Table *table, int row, int column)
         ++row;
         
     }
-    printer_background(user);
+    
 }

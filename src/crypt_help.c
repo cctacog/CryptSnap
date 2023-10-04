@@ -15,11 +15,7 @@ void code_thru_queue(The_Round *terms)
             terms->secret_hex = possibleActions(op, terms->code_hex, terms->key_hex);
         else 
             terms->secret_hex = possibleActions(op, terms->secret_hex, terms->key_hex);
-    }
-    for(int i = 3; i >= 0; --i)
-    {
-        printf("secret: %i\n", (terms->secret_hex >> i) & 1u);
-    }
+    }    
 }
 
 void code_thru_stack(The_Round *terms)
