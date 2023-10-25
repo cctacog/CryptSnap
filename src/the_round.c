@@ -75,7 +75,7 @@ void level_one(The_Round *user)
 void level_two(The_Round *user)
 {
     //user practices thee problems where the code undergoes two gates 
-    enum Operator ops[7] = {NAND, NOR, AND, OR, XNOR, XOR, NONE};      
+    enum Operator ops[7] = {NAND, XOR, AND, NOR, XNOR, OR, NONE};      
     enter_words(user, "Here you will be working with two gates");   
     enter_words(user, "The code wil run through one gate with the key as before!");         
     enter_words(user, "Then the output will run through a second gate with the same key!");      
