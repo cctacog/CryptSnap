@@ -1,9 +1,8 @@
 # Author: Sophia Garcia
 # Date: Oct 27, 2023
 # Description: Macros to help repetetive code that need not the data from encrypt_1 
-.macro 	end
-	#end program
-	li 	$v0, 10
+.macro 	end	
+	li 	$v0, 10	#end program
 	syscall
 .end_macro
 
@@ -68,9 +67,10 @@
 .end_macro
 
 .macro 	slp
+	
 	move 	$t0, $v0	#records prev v0 syscall immediate
 	li	$v0, 32	#sets v0 syscall immediate to sleep for an amount of time in ms(miliseconds)
-	la	$a0, 700	#700ms
+	la	$a0, 1000	#700ms
 	syscall	#sleep done
 	move	$v0, $t0	#retunrs original immediate val
 .end_macro
@@ -85,48 +85,88 @@
 	move	$v0, $t0	#return prev immediate val
 .end_macro
 
-.macro	print_bin	#macro with argument officially
+.macro	print_bin	# macro with argument officially
 ## Here the each printed val is achieved by shifting the bits up to the desired bit then 
 ## AND-ing with 0x01 the AND operation isolated the bit to the what is the rightmost bit
-	addi	$t0, $a0, 0
-	srl	$t3, $t0, 3
-	andi	$t3, $t3, 0x1
-	li	$v0, 1
-	addi	$a0, $t3, 0
+	addi	$t2, $0, 3	# cntr for shifter
+	addi	$t0, $a0, 0	# initialize $t0 with argument entered
+for_loop_printer:
+	srlv	$t3, $t0, $t2	# shift res to $t3
+	andi	$t3, $t3, 0x1	# isolate digit
+	li	$v0, 1	# syscall int to print a digit
+	addi	$a0, $t3, 0	# what value to print
 	syscall	#print left most bit
-	srl	$t3, $t0, 2
-	andi	$t3, $t3, 0x1
-	li	$v0, 1
-	addi	$a0, $t3, 0
-	syscall	#print second to left most bit
-	srl	$t3, $t0, 1
-	andi	$t3, $t3, 0x1
-	li	$v0, 1
-	addi	$a0, $t3, 0
-	syscall	#prints second to right most bit
-	srl	$t3, $t0, 0
-	andi	$t3, $t3, 0x1
-	li	$v0, 1
-	addi	$a0, $t3, 0
-	syscall	#print right most bit
+	addi	$t2, $t2, -1	# sub from val
+	bgt	$t2, -1, for_loop_printer	# if no longer in range to print int num then leave
+	
 .end_macro
 
-.macro	repeat_check
-	lb	$t0, 0($a0)
-	beq	$t0, $s2, repeat
-	lb	$t0, 1($a0)
-	beq	$t0, $s2, repeat
-	lb	$t0, 2($a0)
-	beq	$t0, $s2, repeat
-	lb	$t0, 3($a0)
-	beq	$t0, $s2, repeat
-	lb	$t0, 4($a0)
-	beq	$t0, $s2, repeat
-		
-	li	$t1, 0
-	j	go_back
+.macro	repeat_check	
+	li	$t2, 0	# counter for loop
+	li	$t1, 0	# set for whether or not the repeat is there or not
+repeat_checker:
+	beq	$t2, 4, go_back	# if cntr done then go back
+	lb	$t0, 0($a0)	# retrieve from array
+	beq	$t0, $s2, repeat	# if repeat go to repeat
+	addi	$a0, $a0, 1	# add to array 
+	addi	$t2, $t2, 1	# for loop cntr add
+	j	repeat_checker
+
 repeat:
-	li	$t1, 1
+	li	$t1, 1	# repeat true
+
 go_back:
 	#end macro
+.end_macro
+
+.macro 	status_bar
+	# Example of drawing a rectangle; left x-coordinate is 100, width is 25
+# top y-coordinate is 200, height is 50. Coordinate system starts with
+# (0,0) at the display's upper left corner and increases to the right
+# and down.  (Notice that the y direction is the opposite of math tradition.)
+	li 	$a0,0	# left x-coordinate is 100
+	li 	$a1,100	# width is 25
+	li 	$a2,200	# top y-coordinate is 200
+	mul 	$a3,$a3,50	# height is 50
+	j 	rectangle
+	
+
+rectangle:
+## CODE FROM PROF KEN ARNOLD
+
+# $a0 is xmin (i.e., left edge; must be within the display)
+# $a1 is width (must be nonnegative and within the display)
+# $a2 is ymin  (i.e., top edge, increasing down; must be within the display)
+# $a3 is height (must be nonnegative and within the display)
+
+	beq 	$a1,$zero,rectangleReturn # zero width: draw nothing
+	beq 	$a3,$zero,rectangleReturn # zero height: draw nothing
+
+	li 	$t0,0xFF00 # color: white
+	la 	$t1,frameBuffer
+	add 	$a1,$a1,$a0 # simplify loop tests by switching to first too-far value
+	add 	$a3,$a3,$a2
+	sll 	$a0,$a0,2 # scale x values to bytes (4 bytes per pixel)
+	sll 	$a1,$a1,2
+	sll 	$a2,$a2,11 # scale y values to bytes (512*4 bytes per display row)
+	sll 	$a3,$a3,11
+	addu	$t2,$a2,$t1 # translate y values to display row starting addresses
+	addu 	$a3,$a3,$t1
+	addu 	$a2,$t2,$a0 # translate y values to rectangle row starting addresses
+	addu 	$a3,$a3,$a0
+	addu 	$t2,$t2,$a1 # and compute the ending address for first rectangle row
+	li 	$t4,0x800 # bytes per display row
+
+rectangleYloop:
+	move 	$t3,$a2 # pointer to current pixel for X loop; start at left edge
+	
+rectangleXloop:
+	sw 	$t0,($t3)
+	addiu 	$t3,$t3,4
+	bne 	$t3,$t2,rectangleXloop # keep going if not past the right edge of the rectangle
+	
+	addu 	$a2,$a2,$t4 # advace one row worth for the left edge
+	addu 	$t2,$t2,$t4 # and right edge pointers
+	bne 	$a2,$a3,rectangleYloop # keep going if not off the bottom of the rectangle
+rectangleReturn:
 .end_macro
